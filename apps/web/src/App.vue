@@ -1,16 +1,20 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import BottomNavigation from './components/BottomNavigation.vue'
 import SyncStatus from './components/SyncStatus.vue'
 
 const { t } = useI18n()
+const route = useRoute()
+const bare = computed(() => route.meta.bare === true)
 const { needRefresh, updateServiceWorker } = useRegisterSW({ immediate: true })
 </script>
 
 <template>
   <v-app>
-    <v-app-bar flat density="compact" height="48" color="surface-card">
+    <v-app-bar v-if="!bare" flat density="compact" height="48" color="surface-card">
       <template #prepend>
         <span class="type-h3">{{ t('app.title') }}</span>
       </template>
@@ -21,7 +25,7 @@ const { needRefresh, updateServiceWorker } = useRegisterSW({ immediate: true })
     <v-main>
       <router-view />
     </v-main>
-    <BottomNavigation />
+    <BottomNavigation v-if="!bare" />
     <v-snackbar v-model="needRefresh" :timeout="-1" location="bottom" color="surface-card">
       <span>{{ t('update.available') }}</span>
       <template #actions>

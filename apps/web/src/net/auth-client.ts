@@ -44,6 +44,7 @@ interface Session {
 
 let session: Session | null = null
 let refreshInFlight: Promise<boolean> | null = null
+let refreshUnauthorized = false
 const authRequiredListeners = new Set<() => void>()
 
 export function setSession(response: TokenResponse): void {
@@ -59,6 +60,19 @@ export function clearSession(): void {
 
 export function isAuthenticated(): boolean {
   return session !== null
+}
+
+/** Distingue refresh inválido (401) de falha de rede ao decidir a rota inicial. */
+export function isRefreshUnauthorized(): boolean {
+  return refreshUnauthorized
+}
+
+/** Isola os testes do estado em memória da sessão e dos listeners. */
+export function resetAuthClientForTests(): void {
+  session = null
+  refreshInFlight = null
+  refreshUnauthorized = false
+  authRequiredListeners.clear()
 }
 
 /** Avisa a interface que é preciso entrar de novo; não apaga nada do aparelho. */
@@ -86,6 +100,7 @@ async function errorFrom(response: Response): Promise<ApiError> {
 export function refreshSession(): Promise<boolean> {
   if (refreshInFlight !== null) return refreshInFlight
   const hadSession = session !== null
+  refreshUnauthorized = false
   refreshInFlight = (async () => {
     try {
       const response = await fetch(`${API_BASE}/api/v1/auth/refresh`, {
@@ -98,6 +113,7 @@ export function refreshSession(): Promise<boolean> {
     } catch (error) {
       if (error instanceof ApiError && error.status === 401) {
         clearSession()
+        refreshUnauthorized = true
         if (hadSession) notifyAuthRequired()
       }
       // Falha de rede não apaga o token: a próxima tentativa renova de novo.

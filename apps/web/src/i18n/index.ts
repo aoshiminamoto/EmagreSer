@@ -12,6 +12,19 @@ export const i18n = createI18n({
   messages: { 'pt-BR': ptBR },
 })
 
+/** RN-15: prefixo do navegador para o locale do app. */
+export function browserLocales(languages?: readonly string[]): Locale[] {
+  const values = languages ?? globalThis.navigator?.languages ?? []
+  const found: Locale[] = []
+  for (const value of values) {
+    const prefix = value.split('-')[0]?.toLowerCase()
+    const locale =
+      prefix === 'pt' ? 'pt-BR' : prefix === 'en' ? 'en-US' : prefix === 'es' ? 'es-419' : undefined
+    if (locale !== undefined && !found.includes(locale)) found.push(locale)
+  }
+  return found
+}
+
 const loaded = new Set<Locale>(['pt-BR'])
 
 const loaders: Record<Exclude<Locale, 'pt-BR'>, () => Promise<{ default: typeof ptBR }>> = {

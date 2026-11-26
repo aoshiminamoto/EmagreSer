@@ -23,5 +23,120 @@
   "update": {
     "available": "Nova versão disponível",
     "action": "Atualizar"
+  },
+  "auth": {
+    "email": "E-mail",
+    "password": "Senha",
+    "error": {
+      "invalidCredentials": "E-mail ou senha incorretos.",
+      "emailAlreadyExists": "Este e-mail já está cadastrado.",
+      "tooManyAttempts": "Muitas tentativas. Tente novamente mais tarde.",
+      "consentRequired": "É preciso aceitar o tratamento dos dados para continuar.",
+      "invalidResetToken": "Este link de recuperação expirou ou já foi usado.",
+      "network": "Sem conexão. Tente novamente quando a rede voltar.",
+      "generic": "Não foi possível concluir. Tente novamente.",
+      "invalidFields": "Confira os campos e tente novamente."
+    },
+    "login": {
+      "title": "Que bom te ver de novo",
+      "subtitle": "Entre para continuar sua jornada.",
+      "submit": "Entrar",
+      "forgot": "Esqueci a senha",
+      "createAccount": "Criar conta"
+    },
+    "register": {
+      "title": "Comece agora",
+      "subtitle": "Seu espaço para cuidar do peso com acolhimento.",
+      "name": "Nome (opcional)",
+      "passwordHint": "Use pelo menos 8 caracteres.",
+      "consentBefore": "Aceito o tratamento dos meus dados de saúde (peso, hábitos, humor e, se eu optar, altura para o IMC) para o funcionamento do app, nos termos da",
+      "consentLink": "Política de Privacidade",
+      "consentAfter": ".",
+      "submit": "Criar conta",
+      "toLogin": "Já tenho conta"
+    },
+    "forgot": {
+      "title": "Recuperar senha",
+      "subtitle": "Enviaremos um link para você criar uma nova senha.",
+      "submit": "Enviar link",
+      "sent": "Se o e-mail existir, você receberá um link para redefinir a senha. Ele vale por 30 minutos.",
+      "back": "Voltar para o login"
+    },
+    "reset": {
+      "title": "Nova senha",
+      "subtitle": "Escolha uma senha com pelo menos 8 caracteres.",
+      "submit": "Salvar nova senha",
+      "done": "Senha alterada. Entre com a nova senha.",
+      "missingToken": "Link de recuperação inválido. Peça um novo."
+    }
+  },
+  "privacy": {
+    "title": "Privacidade",
+    "data": "Para o app funcionar, guardamos no aparelho seu peso, hábitos, humor e, se você optar, a altura para o IMC.",
+    "storage": "Os dados sincronizam com sua conta apenas para você acessar em outros aparelhos.",
+    "photos": "As fotos de progresso ficam somente no aparelho e não são enviadas."
+  },
+  "locale": {
+    "label": "Idioma",
+    "name": {
+      "ptBR": "Português",
+      "enUS": "English",
+      "es419": "Español"
+    }
+  },
+  "onboarding": {
+    "progress": "Etapa {current} de {total}",
+    "begin": "Começar",
+    "continue": "Continuar",
+    "skip": "Pular",
+    "save": "Salvar",
+    "finish": "Concluir",
+    "welcome": {
+      "title": "Bem-vindo ao EmagreSer",
+      "slogan": "Cuide do seu peso. Conquiste seus objetivos."
+    },
+    "weight": {
+      "title": "Qual é o seu peso atual?",
+      "body": "Essa é a referência para acompanhar sua evolução. Você pode informar em kg, com uma casa decimal.",
+      "label": "Peso atual (kg)"
+    },
+    "target": {
+      "title": "Qual é a sua meta?",
+      "body": "Escolha um peso-alvo menor que o atual e o passo dos marcos parciais.",
+      "label": "Peso-alvo (kg)",
+      "stepLabel": "Passo dos marcos"
+    },
+    "stepOption": "{count} kg",
+    "bmi": {
+      "title": "Quer acompanhar o seu IMC?",
+      "body": "Para calcular o IMC, precisamos apenas da sua altura. É opcional: você pode pular agora e informar depois, em Configurações.",
+      "heightLabel": "Altura (cm)",
+      "toggle": "Mostrar o IMC no app"
+    },
+    "reminder": {
+      "title": "Quando lembrar de se pesar?",
+      "body": "Escolha o horário do lembrete diário. As notificações podem ser ativadas depois.",
+      "label": "Horário do lembrete"
+    },
+    "error": {
+      "weight": "Informe um peso válido.",
+      "target": "O peso-alvo deve ser menor que o peso atual.",
+      "height": "Informe uma altura entre 100 e 250 cm.",
+      "time": "Informe um horário válido.",
+      "save": "Não foi possível salvar. Tente novamente."
+    }
+  },
+  "account": {
+    "logout": {
+      "action": "Sair",
+      "title": "Sair da conta",
+      "body": "Ao sair, os dados guardados neste aparelho serão apagados.",
+      "pending": "Há {count} alterações aguardando sincronização.",
+      "photos": "Suas {count} fotos de progresso serão apagadas.",
+      "sync": "Sincronizar antes",
+      "download": "Baixar fotos",
+      "cancel": "Cancelar",
+      "confirm": "Sair e apagar dados"
+    }
   }
 }

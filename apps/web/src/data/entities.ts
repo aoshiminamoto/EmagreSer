@@ -95,7 +95,8 @@ export interface OutboxChange {
   clientUpdatedAt: UpdatedAt
 }
 
-export type MetaKey = 'deviceId' | 'lastPullCursor' | 'localePref' | 'flags' | 'streak'
+export type MetaKey =
+  'deviceId' | 'lastPullCursor' | 'localePref' | 'flags' | 'streak' | 'sessionActive'
 
 export interface MetaRecord {
   key: MetaKey

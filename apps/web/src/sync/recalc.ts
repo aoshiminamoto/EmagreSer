@@ -78,7 +78,7 @@ function dayDifference(from: CalendarDate, to: CalendarDate): number {
   return Math.round((end - start) / 86_400_000)
 }
 
-function todayCalendar(now: Date): CalendarDate {
+export function todayCalendar(now: Date): CalendarDate {
   const year = now.getFullYear()
   const month = String(now.getMonth() + 1).padStart(2, '0')
   const day = String(now.getDate()).padStart(2, '0')

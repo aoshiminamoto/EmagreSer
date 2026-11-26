@@ -1,4 +1,5 @@
 /** Liga as peças de rede no arranque do app e no login (fase 4A). */
+import { syncDeviceTimezone } from './features/conta/onboarding'
 import { onSessionReady, startFlags } from './flags/client'
 import { onAuthRequired } from './net/auth-client'
 import { resetSyncForLogin, startSync } from './sync/engine'
@@ -8,6 +9,7 @@ export function startClient(): () => void {
   const stopAuth = onAuthRequired(() => updateSyncState({ authRequired: true }))
   const stopSync = startSync()
   const stopFlags = startFlags()
+  void syncDeviceTimezone()
   return () => {
     stopAuth()
     stopSync()

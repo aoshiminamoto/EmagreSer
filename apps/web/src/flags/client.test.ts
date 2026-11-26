@@ -1,8 +1,9 @@
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { db } from '../data/db'
-import { getFlags } from '../data/meta'
-import { getCachedFlags, normalizeFlags, refreshFlags } from './client'
+import { getFlags, setLocalePref } from '../data/meta'
+import { saveSettings } from '../data/settings'
+import { applyLocaleFromFlags, getCachedFlags, normalizeFlags, refreshFlags } from './client'
 
 function response(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
@@ -70,5 +71,35 @@ describe('cliente de feature flags', () => {
       flags: { i18n_en: true, i18n_es: true },
       locales: ['pt-BR', 'en-US', 'es-419'],
     })
+  })
+})
+
+describe('resolução do idioma (RN-15)', () => {
+  const available = normalizeFlags({
+    flags: { i18n_en: true, i18n_es: true },
+    locales: ['pt-BR', 'en-US', 'es-419'],
+  })
+
+  beforeEach(() => {
+    vi.stubGlobal('navigator', { languages: ['es-MX', 'pt-BR'] })
+  })
+
+  it('user_settings.locale vence quando o onboarding foi concluído', async () => {
+    await saveSettings({ onboardingDone: true, locale: 'en-US' })
+    await setLocalePref('es-419')
+    expect(await applyLocaleFromFlags(available)).toBe('en-US')
+  })
+
+  it('a preferência salva vale antes do onboarding', async () => {
+    await saveSettings({ onboardingDone: false, locale: 'pt-BR' })
+    await setLocalePref('es-419')
+    expect(await applyLocaleFromFlags(available)).toBe('es-419')
+  })
+
+  it('sem preferência usa o navegador e respeita flag desligado', async () => {
+    expect(await applyLocaleFromFlags(available)).toBe('es-419')
+    expect(await applyLocaleFromFlags(normalizeFlags({ flags: {}, locales: ['pt-BR'] }))).toBe(
+      'pt-BR',
+    )
   })
 })

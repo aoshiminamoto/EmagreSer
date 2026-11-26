@@ -23,5 +23,120 @@
   "update": {
     "available": "Nueva versión disponible",
     "action": "Actualizar"
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "error": {
+      "invalidCredentials": "Correo electrónico o contraseña incorrectos.",
+      "emailAlreadyExists": "Este correo ya está registrado.",
+      "tooManyAttempts": "Demasiados intentos. Inténtalo de nuevo más tarde.",
+      "consentRequired": "Debes aceptar el tratamiento de datos para continuar.",
+      "invalidResetToken": "Este enlace de recuperación venció o ya se usó.",
+      "network": "Sin conexión. Inténtalo de nuevo cuando vuelva la red.",
+      "generic": "No se pudo completar. Inténtalo de nuevo.",
+      "invalidFields": "Revisa los campos e inténtalo de nuevo."
+    },
+    "login": {
+      "title": "Qué bueno verte de nuevo",
+      "subtitle": "Inicia sesión para continuar tu camino.",
+      "submit": "Iniciar sesión",
+      "forgot": "Olvidé mi contraseña",
+      "createAccount": "Crear cuenta"
+    },
+    "register": {
+      "title": "Empieza ahora",
+      "subtitle": "Tu espacio para cuidar tu peso con amabilidad.",
+      "name": "Nombre (opcional)",
+      "passwordHint": "Usa al menos 8 caracteres.",
+      "consentBefore": "Acepto el tratamiento de mis datos de salud (peso, hábitos, ánimo y, si lo elijo, altura para el IMC) para que la app funcione, según la",
+      "consentLink": "Política de Privacidad",
+      "consentAfter": ".",
+      "submit": "Crear cuenta",
+      "toLogin": "Ya tengo una cuenta"
+    },
+    "forgot": {
+      "title": "Recuperar contraseña",
+      "subtitle": "Te enviaremos un enlace para crear una contraseña nueva.",
+      "submit": "Enviar enlace",
+      "sent": "Si el correo existe, recibirás un enlace para restablecer tu contraseña. Vale por 30 minutos.",
+      "back": "Volver al inicio de sesión"
+    },
+    "reset": {
+      "title": "Nueva contraseña",
+      "subtitle": "Elige una contraseña de al menos 8 caracteres.",
+      "submit": "Guardar nueva contraseña",
+      "done": "Contraseña cambiada. Inicia sesión con la nueva contraseña.",
+      "missingToken": "Enlace de recuperación no válido. Solicita uno nuevo."
+    }
+  },
+  "privacy": {
+    "title": "Privacidad",
+    "data": "Para funcionar, la app guarda en el dispositivo tu peso, hábitos, ánimo y, si lo eliges, la altura para el IMC.",
+    "storage": "Los datos se sincronizan con tu cuenta solo para que puedas acceder desde otros dispositivos.",
+    "photos": "Las fotos de progreso se quedan solo en el dispositivo y no se envían."
+  },
+  "locale": {
+    "label": "Idioma",
+    "name": {
+      "ptBR": "Português",
+      "enUS": "English",
+      "es419": "Español"
+    }
+  },
+  "onboarding": {
+    "progress": "Paso {current} de {total}",
+    "begin": "Empezar",
+    "continue": "Continuar",
+    "skip": "Omitir",
+    "save": "Guardar",
+    "finish": "Finalizar",
+    "welcome": {
+      "title": "Bienvenido a EmagreSer",
+      "slogan": "Cuida tu peso. Alcanza tus objetivos."
+    },
+    "weight": {
+      "title": "¿Cuál es tu peso actual?",
+      "body": "Este es el punto de partida para seguir tu evolución. Puedes indicar kg con un decimal.",
+      "label": "Peso actual (kg)"
+    },
+    "target": {
+      "title": "¿Cuál es tu meta?",
+      "body": "Elige un peso objetivo menor que el actual y el paso de los hitos parciales.",
+      "label": "Peso objetivo (kg)",
+      "stepLabel": "Paso de los hitos"
+    },
+    "stepOption": "{count} kg",
+    "bmi": {
+      "title": "¿Quieres seguir tu IMC?",
+      "body": "Para calcular el IMC solo necesitamos tu altura. Es opcional: puedes omitirlo ahora e indicarlo después en Ajustes.",
+      "heightLabel": "Altura (cm)",
+      "toggle": "Mostrar el IMC en la app"
+    },
+    "reminder": {
+      "title": "¿Cuándo recordártelo?",
+      "body": "Elige la hora del recordatorio diario. Las notificaciones se pueden activar después.",
+      "label": "Hora del recordatorio"
+    },
+    "error": {
+      "weight": "Indica un peso válido.",
+      "target": "El peso objetivo debe ser menor que el peso actual.",
+      "height": "Indica una altura entre 100 y 250 cm.",
+      "time": "Indica una hora válida.",
+      "save": "No se pudo guardar. Inténtalo de nuevo."
+    }
+  },
+  "account": {
+    "logout": {
+      "action": "Salir",
+      "title": "Salir de la cuenta",
+      "body": "Al salir se borran los datos guardados en este dispositivo.",
+      "pending": "Hay {count} cambios esperando sincronización.",
+      "photos": "Tus {count} fotos de progreso se borrarán.",
+      "sync": "Sincronizar antes",
+      "download": "Descargar fotos",
+      "cancel": "Cancelar",
+      "confirm": "Salir y borrar datos"
+    }
   }
 }

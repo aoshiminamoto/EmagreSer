@@ -23,5 +23,120 @@
   "update": {
     "available": "New version available",
     "action": "Update"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "error": {
+      "invalidCredentials": "Incorrect email or password.",
+      "emailAlreadyExists": "This email is already registered.",
+      "tooManyAttempts": "Too many attempts. Please try again later.",
+      "consentRequired": "You need to accept the data processing to continue.",
+      "invalidResetToken": "This recovery link has expired or was already used.",
+      "network": "No connection. Please try again when you are back online.",
+      "generic": "We could not complete that. Please try again.",
+      "invalidFields": "Please check the fields and try again."
+    },
+    "login": {
+      "title": "Good to see you again",
+      "subtitle": "Sign in to keep going on your journey.",
+      "submit": "Sign in",
+      "forgot": "Forgot password",
+      "createAccount": "Create account"
+    },
+    "register": {
+      "title": "Get started",
+      "subtitle": "A kind place to take care of your weight.",
+      "name": "Name (optional)",
+      "passwordHint": "Use at least 8 characters.",
+      "consentBefore": "I accept the processing of my health data (weight, habits, mood and, if I choose, height for BMI) to run the app, under the",
+      "consentLink": "Privacy Policy",
+      "consentAfter": ".",
+      "submit": "Create account",
+      "toLogin": "I already have an account"
+    },
+    "forgot": {
+      "title": "Recover password",
+      "subtitle": "We will send you a link to set a new password.",
+      "submit": "Send link",
+      "sent": "If the email exists, you will receive a link to reset your password. It is valid for 30 minutes.",
+      "back": "Back to sign in"
+    },
+    "reset": {
+      "title": "New password",
+      "subtitle": "Choose a password with at least 8 characters.",
+      "submit": "Save new password",
+      "done": "Password changed. Sign in with your new password.",
+      "missingToken": "Invalid recovery link. Please request a new one."
+    }
+  },
+  "privacy": {
+    "title": "Privacy",
+    "data": "To work, the app stores your weight, habits, mood and, if you choose, height for BMI on this device.",
+    "storage": "Data syncs with your account only so you can access it on other devices.",
+    "photos": "Progress photos stay on this device and are never uploaded."
+  },
+  "locale": {
+    "label": "Language",
+    "name": {
+      "ptBR": "Português",
+      "enUS": "English",
+      "es419": "Español"
+    }
+  },
+  "onboarding": {
+    "progress": "Step {current} of {total}",
+    "begin": "Get started",
+    "continue": "Continue",
+    "skip": "Skip",
+    "save": "Save",
+    "finish": "Finish",
+    "welcome": {
+      "title": "Welcome to EmagreSer",
+      "slogan": "Take care of your weight. Reach your goals."
+    },
+    "weight": {
+      "title": "What is your current weight?",
+      "body": "This is the starting point for tracking your progress. You can enter kg with one decimal place.",
+      "label": "Current weight (kg)"
+    },
+    "target": {
+      "title": "What is your goal?",
+      "body": "Choose a target weight lower than your current one and the step for partial milestones.",
+      "label": "Target weight (kg)",
+      "stepLabel": "Milestone step"
+    },
+    "stepOption": "{count} kg",
+    "bmi": {
+      "title": "Do you want to track your BMI?",
+      "body": "We only need your height to calculate BMI. This is optional: you can skip now and add it later in Settings.",
+      "heightLabel": "Height (cm)",
+      "toggle": "Show BMI in the app"
+    },
+    "reminder": {
+      "title": "When should we remind you?",
+      "body": "Pick the time of your daily reminder. Notifications can be turned on later.",
+      "label": "Reminder time"
+    },
+    "error": {
+      "weight": "Please enter a valid weight.",
+      "target": "The target weight must be lower than your current weight.",
+      "height": "Please enter a height between 100 and 250 cm.",
+      "time": "Please enter a valid time.",
+      "save": "We could not save. Please try again."
+    }
+  },
+  "account": {
+    "logout": {
+      "action": "Sign out",
+      "title": "Sign out",
+      "body": "Signing out erases the data stored on this device.",
+      "pending": "There are {count} changes waiting to sync.",
+      "photos": "Your {count} progress photos will be erased.",
+      "sync": "Sync first",
+      "download": "Download photos",
+      "cancel": "Cancel",
+      "confirm": "Sign out and erase data"
+    }
   }
 }

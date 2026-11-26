@@ -5,10 +5,16 @@ import {
   VAppBar,
   VBottomNavigation,
   VBtn,
+  VCard,
+  VCheckbox,
   VContainer,
+  VDialog,
   VIcon,
   VMain,
+  VSelect,
   VSnackbar,
+  VSwitch,
+  VTextField,
 } from 'vuetify/components'
 import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
 import { i18n } from '../i18n'
@@ -19,10 +25,16 @@ export const vuetify = createVuetify({
     VAppBar,
     VBottomNavigation,
     VBtn,
+    VCard,
+    VCheckbox,
     VContainer,
+    VDialog,
     VIcon,
     VMain,
+    VSelect,
     VSnackbar,
+    VSwitch,
+    VTextField,
   },
   theme: {
     defaultTheme: 'emagreser',

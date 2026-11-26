@@ -1,4 +1,5 @@
-import { expect, test, type APIRequestContext, type Page } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+import { clearLocalWrites, registerAndSignIn } from './conta-helpers'
 
 interface WeightWrite {
   id?: string
@@ -11,14 +12,6 @@ interface PullChange {
   entity: string
   id: string
   data: Record<string, unknown>
-}
-
-async function register(request: APIRequestContext, email: string): Promise<string> {
-  const response = await request.post('/api/v1/auth/register', {
-    data: { email, password: 'senha-forte-123', consent: true, displayName: 'Teste' },
-  })
-  expect(response.ok()).toBe(true)
-  return ((await response.json()) as { accessToken: string }).accessToken
 }
 
 /** Escreve peso + fila na mesma transação, exatamente como a camada local faz. */
@@ -97,8 +90,8 @@ test('três pesos offline chegam ao servidor sem duplicar quando a rede volta', 
   page,
 }) => {
   const email = `offline-${Date.now()}@example.com`
-  const token = await register(page.request, email)
-  await page.goto('/')
+  const token = await registerAndSignIn(page.request, page, email)
+  await clearLocalWrites(page)
   await expect(page.getByRole('status')).toContainText('Sincronizado')
 
   await context.setOffline(true)
@@ -138,8 +131,8 @@ test('duas abas convergem para a escrita mais recente do mesmo registro', async 
   page,
 }) => {
   const email = `converge-${Date.now()}@example.com`
-  const token = await register(page.request, email)
-  await page.goto('/')
+  const token = await registerAndSignIn(page.request, page, email)
+  await clearLocalWrites(page)
   const id = crypto.randomUUID()
   const older = '2026-11-26T13:00:00.000Z'
   const newer = '2026-11-26T13:05:00.000Z'

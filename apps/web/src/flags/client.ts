@@ -4,7 +4,8 @@
  * no IndexedDB. Sem cache, só pt-BR. Um flag nunca bloqueia função local.
  */
 import { getFlags, getLocalePref, setFlags, type FlagCache } from '../data/meta'
-import { setLocale, SUPPORTED_LOCALES, type Locale } from '../i18n'
+import { getSettings } from '../data/settings'
+import { browserLocales, setLocale, SUPPORTED_LOCALES, type Locale } from '../i18n'
 import { apiJson } from '../net/auth-client'
 
 const REFRESH_MS = 15 * 60_000
@@ -68,14 +69,26 @@ export async function refreshFlags(): Promise<FlagCache> {
   }
 }
 
-/** A preferência salva não muda: se o flag desligou, só o idioma efetivo volta ao padrão. */
+/**
+ * RN-15: user_settings.locale → preferência salva → navegador → pt-BR.
+ * Antes do onboarding o settings ainda tem o padrão do servidor: a escolha feita
+ * no login/cadastro prevalece. A preferência nunca é alterada se o flag desligar.
+ */
 export async function applyLocaleFromFlags(value?: FlagCache): Promise<Locale> {
   const flags = value ?? (await getCachedFlags())
-  const saved = (await getLocalePref()) ?? localStorage.getItem('emagreser.locale')
-  const locale: Locale =
-    saved !== null && flags.locales.includes(saved as Locale) ? (saved as Locale) : 'pt-BR'
-  await setLocale(locale)
-  return locale
+  const [settings, saved, legacy] = await Promise.all([
+    getSettings(),
+    getLocalePref(),
+    Promise.resolve(globalThis.localStorage?.getItem('emagreser.locale') ?? undefined),
+  ])
+  const fromSettings = settings?.onboardingDone === true ? settings.locale : undefined
+  const candidates: (string | undefined)[] = [fromSettings, saved ?? legacy, ...browserLocales()]
+  const locale = candidates.find(
+    (candidate): candidate is Locale =>
+      candidate !== undefined && flags.locales.includes(candidate as Locale),
+  )
+  await setLocale(locale ?? 'pt-BR')
+  return locale ?? 'pt-BR'
 }
 
 export async function onSessionReady(): Promise<void> {
