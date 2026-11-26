@@ -1,5 +1,5 @@
 # Relatório: Fase 4A (Telas de conta e onboarding)
-Data: 2026-11-26 · Commit: 9aebedc
+Data: 2026-11-26 · Commit: 189c47d
 
 ## Resumo (3 linhas)
 Cadastro, login, recuperação e redefinição passaram a usar a API por códigos de erro estáveis, com consentimento desmarcado e mensagem de login genérica.
