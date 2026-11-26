@@ -4,7 +4,7 @@ Atualizado pelo agente ao fim de cada sessão. Marque `[x]` e preencha a data (A
 
 | Sessão | Fase | Título | Tamanho | Concluída | Data |
 |---|---|---|---|---|---|
-| 01 | 0 | Base do monorepo | Média | [ ] | |
+| 01 | 0 | Base do monorepo | Média | [x] | 2026-11-26 |
 | 02 | 1 | Domínio puro (regras de negócio) | Média | [ ] | |
 | 03 | 2A | Backend: banco e autenticação | Grande | [ ] | |
 | 04 | 2B | Backend: sincronização, flags, exportação e exclusão | Grande | [ ] | |

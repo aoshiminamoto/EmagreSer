@@ -14,3 +14,7 @@ Registro de decisões do projeto. O agente acrescenta linhas ao final; nunca apa
 | D-08 | 0 | Navegação com as 5 abas da seção 10; o botão central “+” do guia não entra | O guia mostra outra estrutura de navegação; a especificação funcional prevalece |
 | D-09 | 0 | Tokens derivados fora do guia: `surface-card`, `primary-text` e `error` | Necessários para contraste AA e para ações destrutivas |
 | D-10 | 0 | A marca é EmagreSer; nome e logotipo PesoPro do guia são provisórios | O guia vale só para cores, tipografia, formas e componentes |
+| D-11 | 0 | CSP: `script-src 'self'` sem `eval`; `style-src` permite `unsafe-inline` | Vuetify aplica estilos inline dinâmicos; bloqueá-los quebraria a interface |
+| D-12 | 0 | Ícones PWA gerados por script local com `zlib`, sem dependência nova | Evita serviços externos e mantém o build reproduzível/offline |
+| D-13 | 0 | Catálogos en-US e es-419 compilados em chunks JS e precachados; idioma salvo em `localStorage` | `vue-i18n` precompila os JSON; o locale é lido no arranque e trocado por `setLocale` |
+| D-14 | 0 | Hora e números seguem o `Intl` do locale, sem ajustes manuais | A ICU atual de `es-419` usa 12 h e ponto decimal; forçar outro padrão fugiria da regra RN-16 |

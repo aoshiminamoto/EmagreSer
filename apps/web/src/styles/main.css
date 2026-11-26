@@ -1,0 +1,62 @@
+:root {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: #111827;
+  background: #f8fafc;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.type-h1 {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 600;
+}
+
+.type-h2 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+.type-h3 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.type-body {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.type-caption {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+.placeholder-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.placeholder-tab p {
+  color: #6b7280;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

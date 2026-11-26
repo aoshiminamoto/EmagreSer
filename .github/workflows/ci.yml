@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run i18n:check
+      - run: npm run build
+      - name: Flags de desenvolvimento desligadas no build de produção
+        run: npm run check:prod-env
+        env:
+          VITE_ALLOW_DESKTOP: ${{ vars.VITE_ALLOW_DESKTOP }}
+          VITE_FORCE_LOCALES: ${{ vars.VITE_FORCE_LOCALES }}

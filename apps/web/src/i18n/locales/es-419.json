@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "today": "Hoy",
+    "evolution": "Evolución",
+    "history": "Historial",
+    "goals": "Metas",
+    "more": "Más"
+  },
+  "placeholder": {
+    "body": "Las funciones de {tab} llegan en las próximas sesiones."
+  },
+  "update": {
+    "available": "Nueva versión disponible",
+    "action": "Actualizar"
+  }
+}

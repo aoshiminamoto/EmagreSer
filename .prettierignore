@@ -1,0 +1,6 @@
+dist
+coverage
+node_modules
+docs/design
+docs/relatorios
+package-lock.json
