@@ -2,6 +2,25 @@ import type { ServerMessages } from './types.js'
 
 // Rascunho: revisão humana pendente (Fase 12).
 export const enUS: ServerMessages = {
+  csvHeaders: {
+    entity: 'Entity',
+    id: 'ID',
+    date: 'Date',
+    weightKg: 'Weight (kg)',
+    milestoneKg: 'Milestone (kg)',
+    glasses: 'Glasses',
+    mood: 'Mood',
+    note: 'Note',
+    habitKey: 'Habit key',
+    habitLabel: 'Habit name',
+    active: 'Active',
+    done: 'Done',
+    habitId: 'Habit ID',
+    achievedDate: 'Achieved date',
+    settings: 'Settings',
+    clientUpdatedAt: 'Updated at',
+    deletedAt: 'Deleted at',
+  },
   subject: 'Reset your EmagreSer password',
   body: (url) =>
     `We received a request to reset the password of your EmagreSer account.\n\n` +

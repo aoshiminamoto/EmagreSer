@@ -1,17 +1,11 @@
 import { query } from '../db/pool.js'
-import { sha256 } from './crypto.js'
+import { evaluateFlag, type FlagRecord } from '../flags/evaluate.js'
 
 export type ServerLocale = 'pt-BR' | 'en-US' | 'es-419'
 
 const flagByLocale: Record<'en-US' | 'es-419', string> = {
   'en-US': 'i18n_en',
   'es-419': 'i18n_es',
-}
-
-interface FlagRow {
-  state: string
-  rollout_percent: number
-  tester_emails: string[]
 }
 
 /**
@@ -26,18 +20,9 @@ export async function serverLocaleFor(userId: string, email: string): Promise<Se
   const preferred = rows[0]?.locale
   if (preferred !== 'en-US' && preferred !== 'es-419') return 'pt-BR'
 
-  const key = flagByLocale[preferred]
-  const flags = await query<FlagRow>(
+  const flags = await query<FlagRecord>(
     `SELECT state, rollout_percent, tester_emails FROM feature_flags WHERE key = $1`,
-    [key],
+    [flagByLocale[preferred]],
   )
-  const flag = flags.rows[0]
-  if (flag === undefined || flag.state === 'off') return 'pt-BR'
-  if (flag.state === 'on') return preferred
-  if (flag.state === 'testers' && flag.tester_emails.includes(email.toLowerCase())) return preferred
-  if (flag.state === 'percent') {
-    const bucket = Number.parseInt(sha256(userId).slice(0, 8), 16) % 100
-    if (bucket < flag.rollout_percent) return preferred
-  }
-  return 'pt-BR'
+  return evaluateFlag(flags.rows[0], { id: userId, email }) ? preferred : 'pt-BR'
 }

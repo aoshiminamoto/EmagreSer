@@ -7,7 +7,7 @@ Atualizado pelo agente ao fim de cada sessão. Marque `[x]` e preencha a data (A
 | 01 | 0 | Base do monorepo | Média | [x] | 2026-11-26 |
 | 02 | 1 | Domínio puro (regras de negócio) | Média | [x] | 2026-11-26 |
 | 03 | 2A | Backend: banco e autenticação | Grande | [x] | 2026-11-26 |
-| 04 | 2B | Backend: sincronização, flags, exportação e exclusão | Grande | [ ] | |
+| 04 | 2B | Backend: sincronização, flags, exportação e exclusão | Grande | [x] | 2026-11-26 |
 | 05 | 3A | Cliente: dados locais (Dexie e fila de saída) | Média | [ ] | |
 | 06 | 3B | Cliente: motor de sincronização e flags | Grande | [ ] | |
 | 07 | 4A | Telas de conta e onboarding | Grande | [ ] | |

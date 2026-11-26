@@ -1,6 +1,25 @@
 import type { ServerMessages } from './types.js'
 
 export const ptBR: ServerMessages = {
+  csvHeaders: {
+    entity: 'Entidade',
+    id: 'ID',
+    date: 'Data',
+    weightKg: 'Peso (kg)',
+    milestoneKg: 'Marco (kg)',
+    glasses: 'Copos',
+    mood: 'Humor',
+    note: 'Observação',
+    habitKey: 'Chave do hábito',
+    habitLabel: 'Nome do hábito',
+    active: 'Ativo',
+    done: 'Concluído',
+    habitId: 'ID do hábito',
+    achievedDate: 'Data da conquista',
+    settings: 'Configurações',
+    clientUpdatedAt: 'Atualizado em',
+    deletedAt: 'Excluído em',
+  },
   subject: 'Redefina sua senha do EmagreSer',
   body: (url) =>
     `Recebemos um pedido para redefinir a senha da sua conta EmagreSer.\n\n` +

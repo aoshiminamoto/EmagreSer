@@ -11,8 +11,10 @@ import { HttpError } from './errors.js'
 import { registerRedis } from './plugins/redis.js'
 import { rateLimitPlugin } from './plugins/rate-limit.js'
 import { authRoutes } from './routes/auth.js'
+import { flagRoutes } from './routes/flags.js'
 import { healthRoutes } from './routes/health.js'
 import { meRoutes } from './routes/me.js'
+import { syncRoutes } from './routes/sync.js'
 
 interface LogStream {
   write(message: string): void
@@ -70,6 +72,8 @@ export async function buildServer(logStream?: LogStream) {
   await app.register(healthRoutes)
   await app.register(authRoutes)
   await app.register(meRoutes)
+  await app.register(syncRoutes)
+  await app.register(flagRoutes)
 
   await app.register(fastifyStatic, {
     root: config.webDist,

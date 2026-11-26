@@ -5,6 +5,8 @@ export default defineConfig({
   test: {
     include: ['apps/**/*.test.ts', 'packages/**/*.test.ts', 'tests/**/*.test.ts'],
     environment: 'node',
+    // Os testes de integração compartilham Postgres/Redis e truncam as tabelas: um por vez.
+    fileParallelism: false,
     // Respeita o ambiente do CI; os valores abaixo são só o padrão local.
     env: {
       LOG_LEVEL: 'silent',
