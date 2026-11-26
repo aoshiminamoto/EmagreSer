@@ -17,6 +17,53 @@
     "goals": "Metas",
     "more": "Más"
   },
+  "weight": {
+    "entry": {
+      "titleNew": "Registrar peso",
+      "titleEdit": "Editar registro",
+      "weightLabel": "Peso (kg)",
+      "dateLabel": "Fecha del registro",
+      "noteLabel": "Observación (opcional)",
+      "decrease": "Disminuir {value}",
+      "increase": "Aumentar {value}",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "errorWeight": "Ingresa un peso entre 20 y 500 kg.",
+      "errorDate": "Elige una fecha hasta hoy.",
+      "errorDuplicate": "Ya existe un registro en esta fecha. Edita el registro existente.",
+      "errorSave": "No se pudo guardar. Inténtalo de nuevo."
+    },
+    "today": {
+      "current": "Peso actual",
+      "empty": "Registra tu peso para empezar.",
+      "record": "Registrar peso",
+      "updatedOn": "Actualizado el {date} · {relative}"
+    }
+  },
+  "history": {
+    "title": "Historial",
+    "empty": "Aún no hay registros.",
+    "edit": "Editar registro",
+    "delete": "Borrar registro",
+    "deleteTitle": "¿Borrar registro?",
+    "deleteBody": "El registro del {date} se borrará.",
+    "deleteCancel": "Cancelar",
+    "deleteConfirm": "Borrar",
+    "variationIncrease": "Aumento de {value} respecto al anterior",
+    "variationDecrease": "Disminución de {value} respecto al anterior",
+    "variationSame": "Sin cambios respecto al anterior",
+    "variationFirst": "Primer registro"
+  },
+  "mood": {
+    "feliz": "😊",
+    "ansioso": "😟",
+    "cansado": "😴",
+    "estressado": "😣",
+    "labelFeliz": "Feliz",
+    "labelAnsioso": "Ansioso",
+    "labelCansado": "Cansado",
+    "labelEstressado": "Estresado"
+  },
   "placeholder": {
     "body": "Las funciones de {tab} llegan en las próximas sesiones."
   },

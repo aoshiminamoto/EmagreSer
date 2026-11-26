@@ -2,7 +2,15 @@ import 'fake-indexeddb/auto'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { db } from './db'
 import { listOutbox } from './outbox'
-import { deleteWeightEntry, getWeightEntry, listWeightEntries, putWeightEntry } from './weights'
+import {
+  deleteWeightEntry,
+  editWeightEntry,
+  getWeightEntry,
+  listWeightEntries,
+  putWeightEntry,
+  WeightDateConflictError,
+  WeightEntryNotFoundError,
+} from './weights'
 
 const first = new Date('2026-11-26T10:00:00.000Z')
 const second = new Date('2026-11-26T12:00:00.000Z')
@@ -43,6 +51,27 @@ describe('repositório de peso', () => {
       updatedAt: second.toISOString(),
     })
     expect(await listOutbox()).toMatchObject([{}, { op: 'delete', id: entry.id }])
+  })
+
+  it('edita mantendo o id ao trocar a data e recusa data já ocupada', async () => {
+    const entry = await putWeightEntry({ date: '2026-11-26', weightKg: 70, note: 'leve' }, first)
+    await putWeightEntry({ date: '2026-11-25', weightKg: 71 }, first)
+
+    const edited = await editWeightEntry(
+      entry.id,
+      { date: '2026-11-24', weightKg: 69.5, note: 'bem' },
+      second,
+    )
+
+    expect(edited.id).toBe(entry.id)
+    expect(edited).toMatchObject({ date: '2026-11-24', weightKg: 69.5, note: 'bem' })
+    expect(await getWeightEntry('2026-11-26')).toBeUndefined()
+    await expect(
+      editWeightEntry(entry.id, { date: '2026-11-25', weightKg: 68 }, second),
+    ).rejects.toBeInstanceOf(WeightDateConflictError)
+    await expect(
+      editWeightEntry('inexistente', { date: '2026-11-24', weightKg: 68 }, second),
+    ).rejects.toBeInstanceOf(WeightEntryNotFoundError)
   })
 
   it('permite recriar um peso na mesma data depois da exclusão', async () => {

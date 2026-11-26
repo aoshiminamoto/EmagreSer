@@ -8,6 +8,7 @@ export const router = createRouter({
     { path: '/', name: 'today', component: () => import('../pages/TodayPage.vue') },
     { path: '/evolucao', name: 'evolution', component: () => import('../pages/EvolutionPage.vue') },
     { path: '/historico', name: 'history', component: () => import('../pages/HistoryPage.vue') },
+    { path: '/peso', name: 'weightEntry', component: () => import('../pages/WeightEntryPage.vue') },
     { path: '/metas', name: 'goals', component: () => import('../pages/GoalsPage.vue') },
     { path: '/mais', name: 'more', component: () => import('../pages/MorePage.vue') },
     {

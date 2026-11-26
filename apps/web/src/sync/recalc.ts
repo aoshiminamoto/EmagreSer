@@ -116,11 +116,9 @@ export async function recalcAfterPull(now: Date = new Date()): Promise<void> {
           { milestoneKg, ...(achievedDate === undefined ? {} : { achievedDate }) },
           now,
         )
-      } else if (active.achievedDate !== achievedDate) {
-        await putMilestone(
-          { milestoneKg, ...(achievedDate === undefined ? {} : { achievedDate }) },
-          now,
-        )
+      } else if (active.achievedDate === undefined && achievedDate !== undefined) {
+        // RF-19: uma conquista já datada nunca é desfeita por edição posterior.
+        await putMilestone({ milestoneKg, achievedDate }, now)
       }
     }
   }

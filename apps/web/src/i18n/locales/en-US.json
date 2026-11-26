@@ -17,6 +17,53 @@
     "goals": "Goals",
     "more": "More"
   },
+  "weight": {
+    "entry": {
+      "titleNew": "Record weight",
+      "titleEdit": "Edit entry",
+      "weightLabel": "Weight (kg)",
+      "dateLabel": "Entry date",
+      "noteLabel": "Note (optional)",
+      "decrease": "Decrease by {value}",
+      "increase": "Increase by {value}",
+      "save": "Save",
+      "cancel": "Cancel",
+      "errorWeight": "Enter a weight between 20 and 500 kg.",
+      "errorDate": "Choose a date up to today.",
+      "errorDuplicate": "An entry already exists on this date. Edit that entry instead.",
+      "errorSave": "We could not save. Please try again."
+    },
+    "today": {
+      "current": "Current weight",
+      "empty": "Record your weight to get started.",
+      "record": "Record weight",
+      "updatedOn": "Updated on {date} · {relative}"
+    }
+  },
+  "history": {
+    "title": "History",
+    "empty": "No entries yet.",
+    "edit": "Edit entry",
+    "delete": "Delete entry",
+    "deleteTitle": "Delete entry?",
+    "deleteBody": "The entry for {date} will be deleted.",
+    "deleteCancel": "Cancel",
+    "deleteConfirm": "Delete",
+    "variationIncrease": "Increase of {value} from the previous entry",
+    "variationDecrease": "Decrease of {value} from the previous entry",
+    "variationSame": "No change from the previous entry",
+    "variationFirst": "First entry"
+  },
+  "mood": {
+    "feliz": "😊",
+    "ansioso": "😟",
+    "cansado": "😴",
+    "estressado": "😣",
+    "labelFeliz": "Happy",
+    "labelAnsioso": "Anxious",
+    "labelCansado": "Tired",
+    "labelEstressado": "Stressed"
+  },
   "placeholder": {
     "body": "The features of {tab} arrive in the next sessions."
   },

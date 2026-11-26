@@ -9,6 +9,19 @@ export interface WeightEntryInput {
   note?: string
 }
 
+/** Mensagens sem dados de saúde: a tela traduz o motivo para a pessoa. */
+export class WeightEntryNotFoundError extends Error {
+  constructor() {
+    super('Weight entry not found')
+  }
+}
+
+export class WeightDateConflictError extends Error {
+  constructor() {
+    super('Weight entry already exists on this date')
+  }
+}
+
 /** Um peso por data: uma edição reaproveita o id do registro ativo. */
 export async function putWeightEntry(
   input: WeightEntryInput,
@@ -26,6 +39,35 @@ export async function putWeightEntry(
     ...(input.mood !== undefined ? { mood: input.mood } : {}),
     ...(input.note !== undefined ? { note: input.note } : {}),
     updatedAt: now.toISOString(),
+  }
+  return writeWithOutbox(db.weightEntries, record, 'weight_entries', 'upsert')
+}
+
+/**
+ * RF-18: editar mantém o id mesmo ao trocar a data e nunca duplica um dia já
+ * ocupado por outro registro ativo.
+ */
+export async function editWeightEntry(
+  id: string,
+  input: WeightEntryInput,
+  now: Date = new Date(),
+): Promise<WeightEntry> {
+  const current = await db.weightEntries.get(id)
+  if (current === undefined || current.deleted) throw new WeightEntryNotFoundError()
+  const clash = await db.weightEntries
+    .where('date')
+    .equals(input.date)
+    .filter((entry) => !entry.deleted && entry.id !== id)
+    .first()
+  if (clash !== undefined) throw new WeightDateConflictError()
+  const record: WeightEntry = {
+    ...current,
+    date: input.date,
+    weightKg: input.weightKg,
+    mood: input.mood,
+    note: input.note,
+    updatedAt: now.toISOString(),
+    deleted: false,
   }
   return writeWithOutbox(db.weightEntries, record, 'weight_entries', 'upsert')
 }

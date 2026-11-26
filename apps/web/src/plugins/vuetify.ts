@@ -8,6 +8,7 @@ import {
   VCard,
   VCheckbox,
   VContainer,
+  VDatePicker,
   VDialog,
   VIcon,
   VMain,
@@ -15,6 +16,7 @@ import {
   VSnackbar,
   VSwitch,
   VTextField,
+  VVirtualScroll,
 } from 'vuetify/components'
 import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n'
 import { i18n } from '../i18n'
@@ -28,6 +30,7 @@ export const vuetify = createVuetify({
     VCard,
     VCheckbox,
     VContainer,
+    VDatePicker,
     VDialog,
     VIcon,
     VMain,
@@ -35,6 +38,7 @@ export const vuetify = createVuetify({
     VSnackbar,
     VSwitch,
     VTextField,
+    VVirtualScroll,
   },
   theme: {
     defaultTheme: 'emagreser',
