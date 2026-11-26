@@ -1,4 +1,5 @@
 import type { Table } from 'dexie'
+import { notifyLocalWrite } from '../sync/scheduler'
 import { db } from './db'
 import type { OutboxChange, SyncEntity, SyncOp, UpdatedAt } from './entities'
 
@@ -27,6 +28,7 @@ export async function writeWithOutbox<T extends WriteRecord>(
       clientUpdatedAt: record.updatedAt,
     })
   })
+  notifyLocalWrite()
   return record
 }
 

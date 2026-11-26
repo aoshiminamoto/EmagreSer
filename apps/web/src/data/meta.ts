@@ -36,10 +36,20 @@ export async function setLocalePref(locale: string): Promise<void> {
   await setMeta('localePref', locale)
 }
 
-export async function getFlags(): Promise<Record<string, boolean>> {
-  return (await getMeta<Record<string, boolean>>('flags')) ?? {}
+/** Último resultado de `GET /flags`, guardado para uso sem rede. */
+export interface FlagCache {
+  flags: Record<string, boolean>
+  locales: string[]
 }
 
-export async function setFlags(flags: Record<string, boolean>): Promise<void> {
-  await setMeta('flags', flags)
+export function offlineFlags(): FlagCache {
+  return { flags: { i18n_en: false, i18n_es: false }, locales: ['pt-BR'] }
+}
+
+export async function getFlags(): Promise<FlagCache> {
+  return (await getMeta<FlagCache>('flags')) ?? offlineFlags()
+}
+
+export async function setFlags(value: FlagCache): Promise<void> {
+  await setMeta('flags', value)
 }

@@ -5,6 +5,10 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
+  // Em dev a web roda em outra porta; a API é a mesma origem em produção.
+  server: {
+    proxy: { '/api': { target: 'http://127.0.0.1:3000', changeOrigin: true } },
+  },
   plugins: [
     vue(),
     VueI18nPlugin({

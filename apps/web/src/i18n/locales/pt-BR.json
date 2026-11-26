@@ -1,4 +1,15 @@
 {
+  "app": {
+    "title": "EmagreSer"
+  },
+  "sync": {
+    "synced": "Sincronizado",
+    "pending": "Pendente",
+    "offline": "Offline",
+    "downloading": "Baixando {count} registros",
+    "authRequired": "Entre novamente para sincronizar. Seus dados continuam no aparelho.",
+    "settingsLabel": "Sincronização"
+  },
   "nav": {
     "today": "Hoje",
     "evolution": "Evolução",

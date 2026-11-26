@@ -1,4 +1,15 @@
 {
+  "app": {
+    "title": "EmagreSer"
+  },
+  "sync": {
+    "synced": "Synced",
+    "pending": "Pending",
+    "offline": "Offline",
+    "downloading": "Downloading {count} records",
+    "authRequired": "Sign in again to sync. Your data stays on this device.",
+    "settingsLabel": "Synchronization"
+  },
   "nav": {
     "today": "Today",
     "evolution": "Progress",

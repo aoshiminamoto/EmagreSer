@@ -53,11 +53,11 @@ describe('dados apenas locais', () => {
     expect(await getLastPullCursor()).toBe(0)
     await setLastPullCursor(42)
     await setLocalePref('es-419')
-    await setFlags({ i18n_en: true })
+    await setFlags({ flags: { i18n_en: true }, locales: ['pt-BR', 'en-US'] })
 
     expect(await getLastPullCursor()).toBe(42)
     expect(await getLocalePref()).toBe('es-419')
-    expect(await getFlags()).toEqual({ i18n_en: true })
+    expect(await getFlags()).toEqual({ flags: { i18n_en: true }, locales: ['pt-BR', 'en-US'] })
     expect(await countOutbox()).toBe(0)
   })
 })

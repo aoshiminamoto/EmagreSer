@@ -2,6 +2,7 @@ import { useI18n } from 'vue-i18n'
 import { createVuetify } from 'vuetify'
 import {
   VApp,
+  VAppBar,
   VBottomNavigation,
   VBtn,
   VContainer,
@@ -15,6 +16,7 @@ import { i18n } from '../i18n'
 export const vuetify = createVuetify({
   components: {
     VApp,
+    VAppBar,
     VBottomNavigation,
     VBtn,
     VContainer,

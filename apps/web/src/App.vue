@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import BottomNavigation from './components/BottomNavigation.vue'
+import SyncStatus from './components/SyncStatus.vue'
 
 const { t } = useI18n()
 const { needRefresh, updateServiceWorker } = useRegisterSW({ immediate: true })
@@ -9,6 +10,14 @@ const { needRefresh, updateServiceWorker } = useRegisterSW({ immediate: true })
 
 <template>
   <v-app>
+    <v-app-bar flat density="compact" height="48" color="surface-card">
+      <template #prepend>
+        <span class="type-h3">{{ t('app.title') }}</span>
+      </template>
+      <template #append>
+        <SyncStatus />
+      </template>
+    </v-app-bar>
     <v-main>
       <router-view />
     </v-main>

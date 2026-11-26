@@ -27,6 +27,22 @@ self.addEventListener('message', (event) => {
   if (event.data?.type === 'SKIP_WAITING') void self.skipWaiting()
 })
 
+interface SyncEventLike extends Event {
+  tag: string
+  waitUntil(promise: Promise<unknown>): void
+}
+
+/** Background Sync é só um gatilho extra: o iOS não tem e o app não depende dele. */
+self.addEventListener('sync', (event) => {
+  const sync = event as SyncEventLike
+  if (sync.tag !== 'emagreser-sync') return
+  sync.waitUntil(
+    self.clients.matchAll({ type: 'window' }).then((clients) => {
+      for (const client of clients) client.postMessage({ type: 'SYNC_NOW' })
+    }),
+  )
+})
+
 self.addEventListener('push', (event) => {
   const payload = (event.data?.json() ?? {}) as PushPayload
   event.waitUntil(
