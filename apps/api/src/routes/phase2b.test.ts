@@ -13,9 +13,19 @@ const flushClient = new Redis(config.redisUrl, {
   maxRetriesPerRequest: 1,
 })
 
+async function waitForReady(client: Redis): Promise<void> {
+  const deadline = Date.now() + 5000
+  while (client.status !== 'ready' && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, 20))
+  }
+  if (client.status !== 'ready') throw new Error('Redis não ficou pronto para o teste')
+}
+
 async function withServer(run: (app: FastifyInstance) => Promise<void>): Promise<void> {
   const app = await buildServer()
   try {
+    // O cache de flags só é gravado quando o cliente está pronto; no CI a conexão é mais lenta.
+    await waitForReady(app.redis)
     await run(app)
   } finally {
     await app.close()
@@ -83,8 +93,10 @@ beforeEach(async () => {
   )
   await query(`UPDATE feature_flags SET state = 'off', rollout_percent = 0, tester_emails = '{}'`)
   await query(`SELECT setval('change_seq', 1, false)`)
-  if (flushClient.status === 'end') await flushClient.connect().catch(() => {})
-  await flushClient.flushdb().catch(() => {})
+  // lazyConnect deixa o cliente em "wait", não "end": sem isso o flushdb falhava em silêncio.
+  if (flushClient.status === 'wait' || flushClient.status === 'end') await flushClient.connect()
+  await waitForReady(flushClient)
+  await flushClient.flushdb()
 })
 
 afterAll(async () => {

@@ -16,6 +16,14 @@ const flushClient = new Redis(config.redisUrl, {
   maxRetriesPerRequest: 1,
 })
 
+async function waitForReady(client: Redis): Promise<void> {
+  const deadline = Date.now() + 5000
+  while (client.status !== 'ready' && Date.now() < deadline) {
+    await new Promise((resolve) => setTimeout(resolve, 20))
+  }
+  if (client.status !== 'ready') throw new Error('Redis não ficou pronto para o teste')
+}
+
 function cookieOf(response: { headers: Record<string, unknown> }): string {
   const raw = response.headers['set-cookie']
   const value = Array.isArray(raw) ? raw[0] : raw
@@ -28,6 +36,7 @@ async function withServer(
 ): Promise<void> {
   const app = await buildServer(stream)
   try {
+    await waitForReady(app.redis)
     await run(app)
   } finally {
     await app.close()
@@ -97,8 +106,10 @@ beforeEach(async () => {
   await query(`UPDATE feature_flags SET state = 'off', rollout_percent = 0, tester_emails = '{}'`)
   await query(`SELECT setval('change_seq', 1, false)`)
   mailbox.length = 0
-  if (flushClient.status === 'end') await flushClient.connect().catch(() => {})
-  await flushClient.flushdb().catch(() => {})
+  // lazyConnect deixa o cliente em "wait": conectar antes do flush evita cache stale entre testes.
+  if (flushClient.status === 'wait' || flushClient.status === 'end') await flushClient.connect()
+  await waitForReady(flushClient)
+  await flushClient.flushdb()
 })
 
 afterAll(async () => {
