@@ -28,7 +28,7 @@ Senha argon2id, JWT de 15 min, refresh opaco com hash, limites no Redis e e-mail
 
 ## Riscos e avisos
 - Manter `COOKIE_SECURE=true` em produção; `SMTP_URL` real só é necessário no deploy.
-- `npm run migrate` usa `tsx` (devDependency); o deploy precisa garanti-lo ou copiar o SQL para `dist`.
+- URLs de banco/Redis vêm de env; local usa `127.0.0.1:55432`, CI usa services em `127.0.0.1:5432`.
 
 ## Insumos necessários do dono
 - nenhum

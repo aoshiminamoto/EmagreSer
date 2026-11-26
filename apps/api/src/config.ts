@@ -19,6 +19,17 @@ function booleanFrom(value: string | undefined, fallback: boolean): boolean {
   return value === 'true' || value === '1'
 }
 
+const nodeEnv = process.env.NODE_ENV ?? 'development'
+
+function urlFrom(name: string, fallback: string): string {
+  const value = process.env[name]
+  if (value) return value
+  if (nodeEnv === 'production') {
+    throw new Error(`Variável de ambiente obrigatória ausente: ${name}`)
+  }
+  return fallback
+}
+
 export interface AppConfig {
   port: number
   host: string
@@ -45,18 +56,18 @@ export interface AppConfig {
 export const config: AppConfig = {
   port: numberFrom(process.env.PORT, 3000),
   host: process.env.HOST ?? '0.0.0.0',
-  nodeEnv: process.env.NODE_ENV ?? 'development',
+  nodeEnv,
   logLevel: process.env.LOG_LEVEL ?? 'info',
   webDist: fileURLToPath(new URL('../../web/dist/', import.meta.url)),
-  databaseUrl:
-    process.env.DATABASE_URL ?? 'postgresql://emagreser:emagreser@localhost:55432/emagreser',
-  redisUrl: process.env.REDIS_URL ?? 'redis://localhost:6379',
+  // 127.0.0.1 evita a resolução para ::1, onde o Docker pode não ter publicado a porta.
+  databaseUrl: urlFrom(
+    'DATABASE_URL',
+    'postgresql://emagreser:emagreser@127.0.0.1:55432/emagreser',
+  ),
+  redisUrl: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
   jwtSecret: secretFrom('JWT_SECRET'),
   cookieSecret: secretFrom('COOKIE_SECRET'),
-  cookieSecure: booleanFrom(
-    process.env.COOKIE_SECURE,
-    (process.env.NODE_ENV ?? 'development') === 'production',
-  ),
+  cookieSecure: booleanFrom(process.env.COOKIE_SECURE, nodeEnv === 'production'),
   appOrigin: process.env.APP_ORIGIN ?? 'http://localhost:3000',
   smtpUrl: process.env.SMTP_URL ?? 'smtp://localhost:1025',
   mailFrom: process.env.SMTP_FROM ?? 'EmagreSer <nao-responda@emagreser.local>',
