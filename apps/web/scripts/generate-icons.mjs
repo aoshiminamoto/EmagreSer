@@ -37,14 +37,14 @@ function pixel(x, y, size) {
   return [34, 197, 94, 255]
 }
 
-function makePng(size) {
-  const stride = size * 4 + 1
-  const raw = Buffer.alloc(stride * size)
-  for (let y = 0; y < size; y++) {
+function makePng(width, height, pixelAt) {
+  const stride = width * 4 + 1
+  const raw = Buffer.alloc(stride * height)
+  for (let y = 0; y < height; y++) {
     const row = y * stride
     raw[row] = 0
-    for (let x = 0; x < size; x++) {
-      const [r, g, b, a] = pixel(x, y, size)
+    for (let x = 0; x < width; x++) {
+      const [r, g, b, a] = pixelAt(x, y)
       raw[row + 1 + x * 4] = r
       raw[row + 2 + x * 4] = g
       raw[row + 3 + x * 4] = b
@@ -52,8 +52,8 @@ function makePng(size) {
     }
   }
   const ihdr = Buffer.alloc(13)
-  ihdr.writeUInt32BE(size, 0)
-  ihdr.writeUInt32BE(size, 4)
+  ihdr.writeUInt32BE(width, 0)
+  ihdr.writeUInt32BE(height, 4)
   ihdr[8] = 8
   ihdr[9] = 6
   return Buffer.concat([
@@ -64,12 +64,40 @@ function makePng(size) {
   ])
 }
 
+/** Splash da seção 11: fundo da superfície com o ícone em cartão arredondado. */
+function splashPixel(x, y, width, height) {
+  const size = 360
+  const radius = 80
+  const left = (width - size) / 2
+  const top = (height - size) / 2 - 140
+  const lx = x - left
+  const ly = y - top
+  if (lx >= 0 && lx < size && ly >= 0 && ly < size) {
+    const dx = Math.max(radius - lx, lx - (size - radius), 0)
+    const dy = Math.max(radius - ly, ly - (size - radius), 0)
+    if (Math.hypot(dx, dy) <= radius) return pixel(lx, ly, size)
+  }
+  return [248, 250, 252, 255]
+}
+
 mkdirSync(outputDir, { recursive: true })
 for (const [name, size] of [
   ['icon-192.png', 192],
   ['icon-512.png', 512],
   ['icon-maskable-512.png', 512],
+  ['apple-touch-icon.png', 180],
 ]) {
-  writeFileSync(join(outputDir, name), makePng(size))
+  writeFileSync(
+    join(outputDir, name),
+    makePng(size, size, (x, y) => pixel(x, y, size)),
+  )
   console.log(`ícone gerado: ${name}`)
 }
+
+const splashWidth = 1242
+const splashHeight = 2688
+writeFileSync(
+  join(outputDir, 'splash-1242x2688.png'),
+  makePng(splashWidth, splashHeight, (x, y) => splashPixel(x, y, splashWidth, splashHeight)),
+)
+console.log('splash gerado: splash-1242x2688.png')

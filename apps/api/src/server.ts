@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises'
-import { basename, join, sep } from 'node:path'
+import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import cookie from '@fastify/cookie'
 import helmet from '@fastify/helmet'
@@ -11,6 +11,7 @@ import { HttpError } from './errors.js'
 import { closeReminderRuntime, startWorker } from './jobs/runtime.js'
 import { registerRedis } from './plugins/redis.js'
 import { rateLimitPlugin } from './plugins/rate-limit.js'
+import { applyCacheHeaders } from './static-cache.js'
 import { authRoutes } from './routes/auth.js'
 import { pushRoutes } from './routes/push.js'
 import { flagRoutes } from './routes/flags.js'
@@ -86,13 +87,7 @@ export async function buildServer(logStream?: LogStream) {
   await app.register(fastifyStatic, {
     root: config.webDist,
     prefix: '/',
-    setHeaders(reply, filePath) {
-      if (filePath.includes(`${sep}assets${sep}`)) {
-        reply.header('Cache-Control', 'public, max-age=31536000, immutable')
-      } else if (['index.html', 'sw.js', 'manifest.webmanifest'].includes(basename(filePath))) {
-        reply.header('Cache-Control', 'no-cache')
-      }
-    },
+    setHeaders: applyCacheHeaders,
   })
 
   app.setNotFoundHandler(async (request, reply) => {

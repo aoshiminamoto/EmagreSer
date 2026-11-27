@@ -41,6 +41,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Auditoria de dependências (sem vulnerabilidades altas)
+        run: npm audit --audit-level=high
       - run: npm run lint
       - run: npm test
       - run: npm run i18n:check

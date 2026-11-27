@@ -1,0 +1,16 @@
+.git
+.github
+.env
+.env.*
+!.env.example
+node_modules
+**/node_modules
+**/dist
+test-results
+playwright-report
+e2e
+tests
+prompts
+docs
+*.log
+.DS_Store

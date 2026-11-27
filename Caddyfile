@@ -1,0 +1,11 @@
+# VPS da Hostinger: HTTPS automático na frente do serviço app (Docker Compose).
+# Defina DOMAIN no .env (ex.: DOMAIN=app.exemplo.com).
+{$DOMAIN:localhost} {
+	encode zstd gzip
+
+	header /sw.js Cache-Control "no-cache"
+	header /index.html Cache-Control "no-cache"
+	header /manifest.webmanifest Cache-Control "no-cache"
+
+	reverse_proxy app:3000
+}
