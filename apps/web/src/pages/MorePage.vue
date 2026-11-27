@@ -63,6 +63,16 @@ async function confirmLogout(): Promise<void> {
     </div>
     <ReminderActivation />
     <v-btn
+      to="/galeria"
+      data-testid="gallery-link"
+      color="primary-text"
+      variant="text"
+      prepend-icon="mdi-image-multiple"
+      class="gallery-link"
+    >
+      {{ t('photo.title') }}
+    </v-btn>
+    <v-btn
       data-testid="logout-button"
       class="logout-button"
       variant="text"
@@ -127,8 +137,12 @@ async function confirmLogout(): Promise<void> {
   margin-top: 24px;
 }
 
-.logout-button {
+.gallery-link {
   margin-top: 24px;
+}
+
+.logout-button {
+  margin-top: 8px;
 }
 
 .logout-dialog {

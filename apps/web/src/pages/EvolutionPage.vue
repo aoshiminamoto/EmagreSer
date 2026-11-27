@@ -124,6 +124,15 @@ onMounted(async () => {
         </p>
       </div>
     </div>
+    <v-card class="gallery-shortcut" data-testid="gallery-shortcut-card">
+      <div>
+        <p class="type-h3">{{ t('photo.title') }}</p>
+        <p class="type-caption auth-muted">{{ t('photo.shortcut') }}</p>
+      </div>
+      <v-btn to="/galeria" data-testid="gallery-shortcut" color="primary-text" variant="text">
+        {{ t('photo.open') }}
+      </v-btn>
+    </v-card>
     <MoodDistribution :entries="entries" :today="today" />
   </v-container>
 </template>
@@ -180,6 +189,18 @@ onMounted(async () => {
 }
 
 .indicator p {
+  margin: 0;
+}
+
+.gallery-shortcut {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+}
+
+.gallery-shortcut p {
   margin: 0;
 }
 </style>

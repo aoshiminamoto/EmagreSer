@@ -7,6 +7,7 @@ export const router = createRouter({
   routes: [
     { path: '/', name: 'today', component: () => import('../pages/TodayPage.vue') },
     { path: '/evolucao', name: 'evolution', component: () => import('../pages/EvolutionPage.vue') },
+    { path: '/galeria', name: 'gallery', component: () => import('../pages/GalleryPage.vue') },
     { path: '/historico', name: 'history', component: () => import('../pages/HistoryPage.vue') },
     {
       path: '/peso',

@@ -5,6 +5,7 @@
 import { getSettings, saveSettings } from '../../data/settings'
 import { seedDefaultHabits } from '../../data/habits'
 import { putWeightEntry } from '../../data/weights'
+import { ensurePersistentStorage } from '../fotos/storage'
 import { i18n, type Locale } from '../../i18n'
 import { recalcAfterPull, todayCalendar } from '../../sync/recalc'
 
@@ -70,4 +71,6 @@ export async function completeOnboarding(
   await seedDefaultHabits(now)
   // RN-03/RN-06: marcos e streak derivam do peso inicial e das configurações.
   await recalcAfterPull(now)
+  // RN PWA: protege o IndexedDB (com as fotos) sem bloquear o onboarding se falhar.
+  await ensurePersistentStorage()
 }
