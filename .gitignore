@@ -8,3 +8,35 @@ playwright-report/
 .env.*
 !.env.example
 .DS_Store
+
+# Caches e artefatos de build (o vite-plugin-pwa gera dev-dist em desenvolvimento)
+dev-dist/
+.vite/
+*.tsbuildinfo
+.eslintcache
+
+# Relatórios e caches de teste/blob do Playwright
+blob-report/
+playwright/.cache/
+.nyc_output/
+
+# Logs de ferramentas e backups (dumps podem conter dados de saúde)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.dump
+*.dump.gz
+backups/
+
+# Chaves locais: segredos nunca entram no repositório
+*.pem
+*.key
+
+# Sistema operacional e editores
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json

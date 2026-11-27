@@ -13,6 +13,7 @@ Polimento de splash, ícones, tipografia responsiva e auditoria; validado com Li
 - `useRegisterSW` com verificação ao abrir, `visibilitychange` e intervalo de 1h; snackbar “Nova versão disponível” e reload só no botão.
 - Cabeçalhos de cache extraídos e testados; `npm audit --audit-level=high` no CI; splash e `apple-touch-icon` gerados sem dependência nova.
 - Tipografia em `rem` para fontes grandes do sistema; e2e cobre duas versões do build e o fluxo offline→online.
+- `.gitignore` revisado e ampliado (caches do Vite/PWA, dumps e chaves locais) sem remover padrões existentes.
 
 ## Testes
 - Comando: `npm run lint` → 0 erros; `npm test` → 273 passando, 0 falhas.
@@ -20,7 +21,7 @@ Polimento de splash, ícones, tipografia responsiva e auditoria; validado com Li
 - Verificação manual: imagem de produção subiu com `docker run`, migrações aplicadas e healthcheck `healthy` em `/api/v1/health`; cache `no-cache` em SW/manifest/index e `immutable` em `/assets/`; Lighthouse PWA 100 (instalável, splash, maskable); 3 e2e (atualização + offline) passando.
 
 ## Decisões tomadas
-- D-92 a D-96 registradas em `docs/DECISOES.md` (build/compose, splash, verificação de versão, auditoria e tipografia).
+- D-92 a D-97 registradas em `docs/DECISOES.md` (build/compose, splash, verificação de versão, auditoria, tipografia e `.gitignore`).
 
 ## Pendências e adiado
 - Lighthouse foi executado via `npx` (sem dependência nova) somente na categoria PWA; auditorias de performance/acessibilidade completas ficam para revisão no dispositivo.
