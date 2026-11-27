@@ -103,6 +103,34 @@
     "labelCansado": "Tired",
     "labelEstressado": "Stressed"
   },
+  "habit": {
+    "title": "Today's habits",
+    "empty": "No active habits. Tap Edit to add one.",
+    "vegetais": "Eat vegetables",
+    "sono": "Sleep well",
+    "exercicio": "Move your body",
+    "manage": "Edit",
+    "add": "Add",
+    "cancel": "Cancel",
+    "label": "Habit name",
+    "remove": "Remove habit",
+    "max": "You can have up to {count} habits.",
+    "error": "Enter a name for the habit.",
+    "history": "Last 30 days",
+    "historyValue": "{value} of the last {count} days with all habits completed"
+  },
+  "water": {
+    "title": "Water",
+    "indicator": "{count} of {goal} {unit}",
+    "cup": "glass | glasses",
+    "add": "Add a glass",
+    "remove": "Remove a glass"
+  },
+  "streak": {
+    "title": "Consistency",
+    "days": "{count} day in a row | {count} days in a row",
+    "best": "Best: {count} day | Best: {count} days"
+  },
   "placeholder": {
     "body": "The features of {tab} arrive in the next sessions."
   },

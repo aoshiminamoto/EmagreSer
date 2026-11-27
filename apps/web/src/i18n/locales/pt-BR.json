@@ -103,6 +103,34 @@
     "labelCansado": "Cansado",
     "labelEstressado": "Estressado"
   },
+  "habit": {
+    "title": "Hábitos de hoje",
+    "empty": "Nenhum hábito ativo. Toque em Editar para adicionar um.",
+    "vegetais": "Comer vegetais",
+    "sono": "Dormir bem",
+    "exercicio": "Movimentar o corpo",
+    "manage": "Editar",
+    "add": "Adicionar",
+    "cancel": "Cancelar",
+    "label": "Nome do hábito",
+    "remove": "Remover hábito",
+    "max": "Você pode ter até {count} hábitos.",
+    "error": "Informe um nome para o hábito.",
+    "history": "Últimos 30 dias",
+    "historyValue": "{value} dos últimos {count} dias com todos os hábitos cumpridos"
+  },
+  "water": {
+    "title": "Água",
+    "indicator": "{count} de {goal} {unit}",
+    "cup": "copo | copos",
+    "add": "Adicionar um copo",
+    "remove": "Remover um copo"
+  },
+  "streak": {
+    "title": "Consistência",
+    "days": "{count} dia seguido | {count} dias seguidos",
+    "best": "Recorde: {count} dia | Recorde: {count} dias"
+  },
   "placeholder": {
     "body": "As funcionalidades de {tab} chegam nas próximas sessões."
   },

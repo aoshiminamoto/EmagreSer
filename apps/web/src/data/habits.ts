@@ -12,6 +12,10 @@ export interface HabitInput {
 /** Chaves dos hábitos padrão; o rótulo vem do catálogo de idioma. */
 export const DEFAULT_HABIT_KEYS = ['vegetais', 'sono', 'exercicio'] as const
 
+export function findHabitById(id: string): Promise<Habit | undefined> {
+  return db.habits.get(id)
+}
+
 export async function findHabitByKey(key: string): Promise<Habit | undefined> {
   return db.habits
     .where('key')

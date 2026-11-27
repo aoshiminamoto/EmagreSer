@@ -124,14 +124,33 @@ export function todayCalendar(now: Date): CalendarDate {
   return `${year}-${month}-${day}`
 }
 
+/**
+ * RN-06: recalcula o streak pela união das ações do dia. Também é chamado
+ * depois de cada escrita local de hábito ou água (RF-23/RF-24).
+ */
+export async function recalcStreak(now: Date = new Date()): Promise<StreakSnapshot> {
+  const [entries, habitLogs, waterLogs] = await Promise.all([
+    db.weightEntries.toArray(),
+    db.habitLogs.toArray(),
+    db.waterLogs.toArray(),
+  ])
+  const dates: CalendarDate[] = [
+    ...entries.filter((entry) => entry.deleted !== true).map((entry) => entry.date),
+    ...habitLogs.filter((log) => log.deleted !== true && log.done).map((log) => log.date),
+    ...waterLogs.filter((log) => log.deleted !== true && log.glasses > 0).map((log) => log.date),
+  ]
+  const previous = await getMeta<StreakSnapshot>('streak')
+  const streak = calculateLocalStreak(dates, todayCalendar(now), previous?.best ?? 0)
+  await setMeta('streak', streak)
+  return streak
+}
+
 /** Chamado depois de cada pull que trouxe alguma alteração. */
 export async function recalcAfterPull(now: Date = new Date()): Promise<void> {
-  const [settings, entries, allMilestones, habitLogs, waterLogs] = await Promise.all([
+  const [settings, entries, allMilestones] = await Promise.all([
     getSettings(),
     db.weightEntries.toArray(),
     db.milestones.toArray(),
-    db.habitLogs.toArray(),
-    db.waterLogs.toArray(),
   ])
 
   if (
@@ -150,12 +169,5 @@ export async function recalcAfterPull(now: Date = new Date()): Promise<void> {
     for (const milestone of plan.stale) await deleteMilestone(milestone.id, now)
   }
 
-  const dates: CalendarDate[] = [
-    ...entries.filter((entry) => entry.deleted !== true).map((entry) => entry.date),
-    ...habitLogs.filter((log) => log.deleted !== true && log.done).map((log) => log.date),
-    ...waterLogs.filter((log) => log.deleted !== true).map((log) => log.date),
-  ]
-  const previous = await getMeta<StreakSnapshot>('streak')
-  const streak = calculateLocalStreak(dates, todayCalendar(now), previous?.best ?? 0)
-  await setMeta('streak', streak)
+  await recalcStreak(now)
 }
