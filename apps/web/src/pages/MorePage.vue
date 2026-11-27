@@ -54,9 +54,8 @@ async function confirmLogout(): Promise<void> {
 </script>
 
 <template>
-  <v-container class="placeholder-tab">
+  <v-container class="more-tab">
     <h1 class="type-h1">{{ t('nav.more') }}</h1>
-    <p class="type-body">{{ t('placeholder.body', { tab: t('nav.more') }) }}</p>
     <div class="sync-status-settings">
       <span class="type-caption">{{ t('sync.settingsLabel') }}</span>
       <SyncStatus detailed />

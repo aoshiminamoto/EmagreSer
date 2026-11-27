@@ -148,9 +148,6 @@
     "days": "{count} day in a row | {count} days in a row",
     "best": "Best: {count} day | Best: {count} days"
   },
-  "placeholder": {
-    "body": "The features of {tab} arrive in the next sessions."
-  },
   "update": {
     "available": "New version available",
     "action": "Update"

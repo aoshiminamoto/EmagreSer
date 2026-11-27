@@ -148,9 +148,6 @@
     "days": "{count} día seguido | {count} días seguidos",
     "best": "Récord: {count} día | Récord: {count} días"
   },
-  "placeholder": {
-    "body": "Las funciones de {tab} llegan en las próximas sesiones."
-  },
   "update": {
     "available": "Nueva versión disponible",
     "action": "Actualizar"

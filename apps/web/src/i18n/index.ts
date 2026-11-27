@@ -1,15 +1,28 @@
 import type { WritableComputedRef } from 'vue'
-import { createI18n } from 'vue-i18n'
+import { createI18n, type LocaleMessageValue } from 'vue-i18n'
+import { en as vuetifyEn, es as vuetifyEs, pt as vuetifyPt } from 'vuetify/locale'
 import ptBR from './locales/pt-BR.json'
 
 export const SUPPORTED_LOCALES = ['pt-BR', 'en-US', 'es-419'] as const
 export type Locale = (typeof SUPPORTED_LOCALES)[number]
 
+// O adaptador do Vuetify lê os textos internos (seletor de data, acessibilidade)
+// de $vuetify no catálogo ativo; sem eles aparecem as chaves cruas.
+const vuetifyMessages: Record<Locale, LocaleMessageValue> = {
+  'pt-BR': vuetifyPt,
+  'en-US': vuetifyEn,
+  'es-419': vuetifyEs,
+}
+
+function withVuetify<T extends object>(catalog: T, locale: Locale): T {
+  return { ...catalog, $vuetify: vuetifyMessages[locale] }
+}
+
 export const i18n = createI18n({
   legacy: false,
   locale: 'pt-BR',
   fallbackLocale: 'pt-BR',
-  messages: { 'pt-BR': ptBR },
+  messages: { 'pt-BR': withVuetify(ptBR, 'pt-BR') },
 })
 
 /** RN-15: prefixo do navegador para o locale do app. */
@@ -36,7 +49,7 @@ const loaders: Record<Exclude<Locale, 'pt-BR'>, () => Promise<{ default: typeof 
 export async function setLocale(locale: Locale): Promise<void> {
   if (locale !== 'pt-BR' && !loaded.has(locale)) {
     const catalog = await loaders[locale]()
-    i18n.global.setLocaleMessage(locale, catalog.default)
+    i18n.global.setLocaleMessage(locale, withVuetify(catalog.default, locale))
     loaded.add(locale)
   }
   ;(i18n.global.locale as WritableComputedRef<Locale>).value = locale
