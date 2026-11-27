@@ -18,6 +18,8 @@ export function reminderService(): ReminderService {
 
 /** O worker só existe quando há par VAPID; em dev/teste o job pode ser inspecionado sem envio. */
 export function startWorker(): void {
+  // Nos testes o job é exercitado diretamente, com sender e fila injetados.
+  if (config.nodeEnv === 'test') return
   if (config.vapidPublicKey === '' || config.vapidPrivateKey === '') return
   worker = startReminderWorker(reminderService())
 }

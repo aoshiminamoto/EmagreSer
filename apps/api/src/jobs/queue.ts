@@ -15,7 +15,10 @@ export interface ScheduledReminder {
 
 function connection(): Redis {
   // BullMQ exige maxRetriesPerRequest nulo para conexões de blocking do worker.
-  return new Redis(config.redisUrl, { maxRetriesPerRequest: null })
+  const client = new Redis(config.redisUrl, { maxRetriesPerRequest: null })
+  // Redis é otimização: sem ele a fila não funciona, mas a API continua de pé.
+  client.on('error', () => {})
+  return client
 }
 
 export class BullMQReminderQueue implements ReminderQueue {
