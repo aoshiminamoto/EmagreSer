@@ -20,7 +20,7 @@ Atualizado pelo agente ao fim de cada sessão. Marque `[x]` e preencha a data (A
 | 14 | 10 | Configurações, privacidade, IMC e idioma | Grande | [x] | 2026-11-27 |
 | 15 | 11A | Detecção de dispositivo, landing de desktop e instalação | Média | [x] | 2026-11-27 |
 | 16 | 11B | Deploy e polimento | Grande | [x] | 2026-11-27 |
-| 17 | 12 | Revisão de idiomas, flags e checklist final | Média | [ ] | |
+| 17 | 12 | Revisão de idiomas, flags e checklist final | Média | [x] | 2026-11-27 |
 
 ## Ponto de retomada
 

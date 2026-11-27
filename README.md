@@ -47,6 +47,24 @@ npm run test:e2e                 # exige API, Postgres e Redis reais
 
 Os ícones (192, 512, maskable, `apple-touch-icon` e splash) são gerados sem dependências externas com `npm run icons --workspace @emagreser/web`.
 
+## Idiomas e feature flags
+
+`pt-BR` é sempre disponível. `en-US` e `es-419` estão completos no código, mas são rascunho até revisão humana (textos sensíveis em `docs/REVISAO_TRADUCOES.md`). Cada idioma tem um flag na tabela `feature_flags`: `i18n_en` e `i18n_es`.
+
+O script `flags:set` altera o estado sem painel e invalida o cache do Redis:
+
+```bash
+npm run flags:set -- i18n_en off
+npm run flags:set -- i18n_en testers --emails a@exemplo.com,b@exemplo.com
+npm run flags:set -- i18n_en percent 20
+npm run flags:set -- i18n_en on
+# substitua i18n_en por i18n_es para o espanhol
+```
+
+Estados: `off` (ninguém), `testers` (só os e-mails listados), `percent` (testadores mais a porcentagem de usuários, por hash estável do id) e `on` (todos). Sem login autenticado, só `on` vale; a rota `GET /api/v1/flags` nunca expõe testadores nem percentual. O cliente consulta ao abrir, após login, ao voltar ao primeiro plano e a cada 15 min, e guarda o último resultado no IndexedDB: sem rede ele usa o cache e, sem cache, mostra só `pt-BR`. Desligar um flag volta o app a `pt-BR` sem apagar a preferência salva.
+
+Roteiro de liberação: (1) produção com os dois flags em `off`; (2) `testers` com a equipe, revisando em aparelhos reais; (3) `percent` em 10% e depois 50%; (4) `on`; (5) remover os flags do código após 30 dias estáveis. `VITE_FORCE_LOCALES=pt-BR,en-US,es-419` ignora os flags apenas em desenvolvimento/teste; `npm run check:prod-env` falha se essa variável (ou `VITE_ALLOW_DESKTOP`) estiver ligada no build de produção.
+
 ## Deploy na Railway (principal)
 
 1. Crie um projeto com três serviços: `app`, `PostgreSQL` e `Redis`.
