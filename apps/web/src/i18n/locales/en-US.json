@@ -394,5 +394,84 @@
     },
     "note": "BMI is a general reference for adults. It does not account for muscle mass, age or fat distribution, and the ranges do not apply to people under 18 and are not ideal from age 60 onward. Talk to a health professional to interpret it.",
     "targetWarning": "This target weight is below the range considered healthy for your height. It may help to talk to a health professional before following it."
+  },
+  "landing": {
+    "meta": {
+      "title": "EmagreSer — weight tracking with care",
+      "description": "A weight tracking app for your phone: log your weight, follow the trend and care for your routine with kindness.",
+      "ogTitle": "EmagreSer — care for your weight with kindness",
+      "ogDescription": "A phone app that follows weight, goals, habits and mood without judgment."
+    },
+    "brand": {
+      "slogan": "Care for your weight. Reach your goals."
+    },
+    "restriction": {
+      "title": "EmagreSer is for phones and tablets only.",
+      "body": "Point your phone camera at the QR Code or open the address below in your phone browser.",
+      "addressLabel": "App address",
+      "copy": "Copy link",
+      "copied": "Link copied.",
+      "qrAlt": "QR Code to open EmagreSer on your phone"
+    },
+    "resetHint": "Open this password reset link from the email on your phone to create a new password.",
+    "social": {
+      "active": "people active in the last 30 days",
+      "total": "{count} people registered",
+      "starting": "We are just getting started. Be one of the first people to use EmagreSer."
+    },
+    "features": {
+      "title": "What the app offers",
+      "weight": {
+        "title": "Weight and trend",
+        "body": "Log your weight and follow the trend with a 7-day moving average."
+      },
+      "goals": {
+        "title": "Partial goals",
+        "body": "Set a target and celebrate every milestone along the way."
+      },
+      "habits": {
+        "title": "Habits and water",
+        "body": "Track your habits and count your glasses of water for the day."
+      },
+      "mood": {
+        "title": "Mood journal",
+        "body": "Record how you felt, optionally and without judgment."
+      },
+      "photos": {
+        "title": "Private progress photos",
+        "body": "Keep progress photos that stay only on your device."
+      },
+      "reminders": {
+        "title": "Daily reminders",
+        "body": "Pick a gentle time to be reminded to weigh in."
+      },
+      "offline": {
+        "title": "Offline and synced",
+        "body": "Use it without a connection: your entries sync when you are back online."
+      },
+      "bmi": {
+        "title": "Optional BMI",
+        "body": "If you add your height, BMI is shown only if you want it and can stay hidden."
+      }
+    },
+    "stats": {
+      "title": "App usage data",
+      "weightEntries": "Weight entries",
+      "habitsCompleted": "Habits completed",
+      "waterGlasses": "Glasses of water logged",
+      "updatedAt": "Updated on {value}"
+    },
+    "footer": {
+      "privacy": "About and privacy",
+      "version": "App version {version}"
+    }
+  },
+  "install": {
+    "title": "Take EmagreSer with you",
+    "body": "Install the app on your home screen to open it faster and get reminders.",
+    "action": "Install",
+    "dismiss": "Not now",
+    "manualTitle": "Add to your home screen",
+    "manualBody": "On iPhone or iPad, tap Share and then Add to Home Screen."
   }
 }

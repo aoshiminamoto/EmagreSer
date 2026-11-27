@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { restoreSession } from '../features/conta/session'
 import { isOnboardingDone } from '../features/conta/onboarding'
+import { isDesktopFlow } from '../features/device/detection'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -63,6 +64,9 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
+  // RN-13: no desktop só a página pública “Sobre e privacidade” é permitida.
+  // Não se consulta sessão nem IndexedDB nesse fluxo.
+  if (isDesktopFlow() && to.name !== 'privacy') return { name: 'privacy' }
   const authenticated = await restoreSession()
   if (to.meta.public === true) {
     if (authenticated && to.meta.guestOnly === true) {

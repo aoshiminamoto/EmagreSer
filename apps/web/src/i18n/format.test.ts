@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDate, formatNumber, formatRelative, formatTime } from './format'
+import { formatDate, formatDateTime, formatNumber, formatRelative, formatTime } from './format'
 
 const now = new Date(2026, 11, 31, 12, 0, 0)
 
@@ -28,6 +28,12 @@ describe('formatTime', () => {
     expect(formatTime('08:45', 'pt-BR')).toBe('08:45')
     expect(formatTime('08:45', 'es-419')).toBe('08:45 a.m.')
     expect(formatTime('08:45', 'en-US')).toBe('08:45 AM')
+  })
+})
+
+describe('formatDateTime', () => {
+  it('formata instante ISO com data e hora no idioma', () => {
+    expect(formatDateTime('2026-12-31T10:30:00.000Z', 'pt-BR')).toContain('31 de dez. de 2026')
   })
 })
 

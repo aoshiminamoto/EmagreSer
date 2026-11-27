@@ -7,7 +7,25 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   // Em dev a web roda em outra porta; a API é a mesma origem em produção.
   server: {
-    proxy: { '/api': { target: 'http://127.0.0.1:3000', changeOrigin: true } },
+    proxy: {
+      '/api': { target: 'http://127.0.0.1:3000', changeOrigin: true },
+      '/public': { target: 'http://127.0.0.1:3000', changeOrigin: true },
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // A landing tem nome próprio para ficar fora do precache do service worker (RN-12).
+        chunkFileNames: (chunk) =>
+          chunk.facadeModuleId?.includes('/features/landing/') || chunk.name === 'LandingPage'
+            ? 'landing-[hash].js'
+            : 'assets/[name]-[hash].js',
+        assetFileNames: (asset) =>
+          /^(mount|LandingPage)/.test(asset.name ?? '')
+            ? 'landing-[hash][extname]'
+            : 'assets/[name]-[hash][extname]',
+      },
+    },
   },
   plugins: [
     vue(),
@@ -25,6 +43,8 @@ export default defineConfig({
       injectRegister: false,
       injectManifest: {
         globPatterns: ['**/*.{js,css,html,json,svg,png,woff,woff2}'],
+        // Em celular a landing nunca é baixada, nem pelo precache do SW.
+        globIgnores: ['**/landing-*'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       },
       manifest: {

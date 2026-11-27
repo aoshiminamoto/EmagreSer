@@ -64,6 +64,7 @@ export interface AppConfig {
   generalRateLimit: number
   generalRateWindowSeconds: number
   sessionCacheTtlSeconds: number
+  publicStatsMinUsers: number
 }
 
 export const config: AppConfig = {
@@ -94,4 +95,5 @@ export const config: AppConfig = {
   generalRateLimit: numberFrom(process.env.GENERAL_RATE_LIMIT, 300),
   generalRateWindowSeconds: 60,
   sessionCacheTtlSeconds: 60,
+  publicStatsMinUsers: numberFrom(process.env.PUBLIC_STATS_MIN_USERS, 50),
 }

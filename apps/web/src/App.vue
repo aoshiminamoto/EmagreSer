@@ -4,7 +4,9 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import BottomNavigation from './components/BottomNavigation.vue'
+import InstallBanner from './components/InstallBanner.vue'
 import SyncStatus from './components/SyncStatus.vue'
+import { isMobileFlow } from './features/device/detection'
 import {
   celebration,
   dismissCelebration,
@@ -17,7 +19,8 @@ import { startPostSaveListener } from './features/humor/queue'
 const { t, locale } = useI18n()
 const route = useRoute()
 const bare = computed(() => route.meta.bare === true)
-const { needRefresh, updateServiceWorker } = useRegisterSW({ immediate: true })
+// RN-12/RN-13: service worker apenas no fluxo móvel; desktop nunca registra.
+const { needRefresh, updateServiceWorker } = useRegisterSW({ immediate: isMobileFlow() })
 const stopCelebration = startCelebrationListener()
 const stopPostSave = startPostSaveListener()
 onUnmounted(() => {
@@ -40,6 +43,7 @@ onUnmounted(() => {
       <router-view />
     </v-main>
     <BottomNavigation v-if="!bare" />
+    <InstallBanner v-if="isMobileFlow()" />
     <v-snackbar v-model="needRefresh" :timeout="-1" location="bottom" color="surface-card">
       <span>{{ t('update.available') }}</span>
       <template #actions>

@@ -394,5 +394,84 @@
     },
     "note": "O IMC é uma referência geral para adultos. Ele não considera massa muscular, idade ou distribuição de gordura, e as faixas não se aplicam a menores de 18 anos nem são ideais a partir dos 60. Converse com um profissional de saúde para interpretá-lo.",
     "targetWarning": "Esse peso-alvo está abaixo da faixa considerada saudável para a sua altura. Vale conversar com um profissional de saúde antes de seguir com ele."
+  },
+  "landing": {
+    "meta": {
+      "title": "EmagreSer — controle de peso com acolhimento",
+      "description": "Aplicativo de controle de peso para celular: registre seu peso, acompanhe a tendência e cuide da sua rotina com acolhimento.",
+      "ogTitle": "EmagreSer — cuide do seu peso com acolhimento",
+      "ogDescription": "Um app para celular que acompanha peso, metas, hábitos e humor sem julgamento."
+    },
+    "brand": {
+      "slogan": "Cuide do seu peso. Conquiste seus objetivos."
+    },
+    "restriction": {
+      "title": "O EmagreSer é de uso exclusivo em celulares e tablets.",
+      "body": "Aponte a câmera do celular para o QR Code ou abra o endereço abaixo no navegador do seu celular.",
+      "addressLabel": "Endereço do app",
+      "copy": "Copiar link",
+      "copied": "Link copiado.",
+      "qrAlt": "QR Code para abrir o EmagreSer no celular"
+    },
+    "resetHint": "Abra este link de recuperação no e-mail do seu celular para criar uma nova senha.",
+    "social": {
+      "active": "pessoas ativas nos últimos 30 dias",
+      "total": "{count} pessoas cadastradas",
+      "starting": "Estamos começando agora. Seja uma das primeiras pessoas a usar o EmagreSer."
+    },
+    "features": {
+      "title": "O que o app oferece",
+      "weight": {
+        "title": "Peso e tendência",
+        "body": "Registre seu peso e acompanhe a tendência com média móvel de 7 dias."
+      },
+      "goals": {
+        "title": "Metas parciais",
+        "body": "Defina sua meta e comemore cada marco alcançado no caminho."
+      },
+      "habits": {
+        "title": "Hábitos e água",
+        "body": "Anote seus hábitos e acompanhe os copos de água do dia."
+      },
+      "mood": {
+        "title": "Diário de humor",
+        "body": "Registre como se sentiu, de forma opcional e sem julgamento."
+      },
+      "photos": {
+        "title": "Fotos de evolução",
+        "body": "Guarde fotos de progresso que ficam somente no seu aparelho."
+      },
+      "reminders": {
+        "title": "Lembretes diários",
+        "body": "Escolha um horário gentil para lembrar de se pesar."
+      },
+      "offline": {
+        "title": "Offline e sincronizado",
+        "body": "Use sem rede: seus registros sincronizam quando a conexão volta."
+      },
+      "bmi": {
+        "title": "IMC opcional",
+        "body": "Se você informar sua altura, o IMC aparece só se quiser e pode ficar oculto."
+      }
+    },
+    "stats": {
+      "title": "Dados de uso do app",
+      "weightEntries": "Registros de peso",
+      "habitsCompleted": "Hábitos concluídos",
+      "waterGlasses": "Copos de água registrados",
+      "updatedAt": "Atualizado em {value}"
+    },
+    "footer": {
+      "privacy": "Sobre e privacidade",
+      "version": "Versão {version}"
+    }
+  },
+  "install": {
+    "title": "Leve o EmagreSer com você",
+    "body": "Instale o app na tela de início para abrir mais rápido e receber lembretes.",
+    "action": "Instalar",
+    "dismiss": "Agora não",
+    "manualTitle": "Adicione à tela de início",
+    "manualBody": "No iPhone ou iPad, toque em Compartilhar e depois em Adicionar à Tela de Início."
   }
 }

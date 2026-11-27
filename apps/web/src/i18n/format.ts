@@ -34,6 +34,14 @@ export function formatTime(
   }).format(date)
 }
 
+/** RF-67: instante ISO (updatedAt da landing) com data e hora no idioma ativo. */
+export function formatDateTime(value: string, locale: string): string {
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(new Date(value))
+}
+
 export function formatRelative(value: string, locale: string, now: Date = new Date()): string {
   const today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())
   const days = Math.round((calendarDate(value).getTime() - today) / 86_400_000)

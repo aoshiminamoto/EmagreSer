@@ -16,6 +16,7 @@ import { pushRoutes } from './routes/push.js'
 import { flagRoutes } from './routes/flags.js'
 import { healthRoutes } from './routes/health.js'
 import { meRoutes } from './routes/me.js'
+import { publicRoutes } from './routes/public.js'
 import { syncRoutes } from './routes/sync.js'
 
 interface LogStream {
@@ -77,6 +78,7 @@ export async function buildServer(logStream?: LogStream) {
   await app.register(syncRoutes)
   await app.register(flagRoutes)
   await app.register(pushRoutes)
+  await app.register(publicRoutes)
 
   app.addHook('onClose', closeReminderRuntime)
   startWorker()

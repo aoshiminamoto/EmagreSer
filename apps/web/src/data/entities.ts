@@ -105,6 +105,7 @@ export type MetaKey =
   | 'sessionActive'
   | 'welcomeLastIndex'
   | 'iosInstallNoticeDismissed'
+  | 'installPromptDismissedAt'
 
 export interface MetaRecord {
   key: MetaKey
