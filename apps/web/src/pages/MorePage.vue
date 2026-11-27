@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import ReminderActivation from '../components/ReminderActivation.vue'
 import SyncStatus from '../components/SyncStatus.vue'
 import type { ProgressPhoto } from '../data/entities'
 import { countOutbox } from '../data/outbox'
@@ -60,6 +61,7 @@ async function confirmLogout(): Promise<void> {
       <span class="type-caption">{{ t('sync.settingsLabel') }}</span>
       <SyncStatus detailed />
     </div>
+    <ReminderActivation />
     <v-btn
       data-testid="logout-button"
       class="logout-button"

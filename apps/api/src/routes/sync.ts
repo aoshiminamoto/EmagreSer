@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { withTransaction } from '../db/pool.js'
+import { reminderService } from '../jobs/runtime.js'
 import { requireAuth, requireUserId } from '../plugins/auth.js'
 import { touchLastSeen } from '../services/sessions.js'
 import { applyBatch, pullChanges, pushBodySchema } from '../services/sync.js'
@@ -17,6 +18,14 @@ export async function syncRoutes(app: FastifyInstance): Promise<void> {
     const body = pushBodySchema.parse(request.body)
     const userId = requireUserId(request)
     const result = await withTransaction((client) => applyBatch(client, userId, body.changes))
+    if (result.applied.some((change) => change.entity === 'settings')) {
+      try {
+        await reminderService().schedule(userId)
+      } catch {
+        // Redis fora não pode impedir a sincronização: falha aberta.
+        request.log.error({ code: 'REMINDER_SCHEDULE_FAILED' }, 'falha ao agendar lembrete')
+      }
+    }
     await touchLastSeen(userId)
     return result
   })

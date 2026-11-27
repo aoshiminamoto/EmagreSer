@@ -103,6 +103,7 @@ export type MetaKey =
   | 'streak'
   | 'sessionActive'
   | 'welcomeLastIndex'
+  | 'iosInstallNoticeDismissed'
 
 export interface MetaRecord {
   key: MetaKey

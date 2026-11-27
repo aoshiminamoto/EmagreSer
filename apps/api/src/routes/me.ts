@@ -2,6 +2,7 @@ import type { FastifyInstance, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { query, withTransaction } from '../db/pool.js'
 import { httpError } from '../errors.js'
+import { reminderService } from '../jobs/runtime.js'
 import { clearRefreshCookie, requireAuth, requireUserId } from '../plugins/auth.js'
 import { buildUserExport, exportToCsv } from '../services/export.js'
 import { serverLocaleFor } from '../services/locale.js'
@@ -109,6 +110,11 @@ export async function meRoutes(app: FastifyInstance): Promise<void> {
       }
       await client.query(`DELETE FROM users WHERE id = $1`, [userId])
     })
+    try {
+      await reminderService().cancel(userId)
+    } catch {
+      request.log.error({ code: 'REMINDER_CANCEL_FAILED' }, 'falha ao cancelar lembrete')
+    }
     await clearCachedProfile(app, userId)
     clearRefreshCookie(reply)
     return reply.send({ ok: true })

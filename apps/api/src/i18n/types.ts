@@ -18,8 +18,14 @@ export interface CsvHeaders {
   deletedAt: string
 }
 
+export interface ReminderMessages {
+  titles: readonly string[]
+  bodies: readonly string[]
+}
+
 export interface ServerMessages {
   subject: string
   body: (url: string) => string
   csvHeaders: CsvHeaders
+  reminder: ReminderMessages
 }

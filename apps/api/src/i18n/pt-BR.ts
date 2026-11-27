@@ -20,6 +20,14 @@ export const ptBR: ServerMessages = {
     clientUpdatedAt: 'Atualizado em',
     deletedAt: 'Excluído em',
   },
+  reminder: {
+    titles: ['Bom dia!', 'Um lembrete gentil', 'Sua pausa de hoje'],
+    bodies: [
+      'Que tal um registro rápido para acompanhar sua jornada?',
+      'Se der, reserve um minuto para o seu registro de hoje.',
+      'Um registro rápido ajuda a mostrar sua tendência com o tempo.',
+    ],
+  },
   subject: 'Redefina sua senha do EmagreSer',
   body: (url) =>
     `Recebemos um pedido para redefinir a senha da sua conta EmagreSer.\n\n` +

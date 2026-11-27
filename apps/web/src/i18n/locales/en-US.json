@@ -269,5 +269,20 @@
       "cancel": "Cancel",
       "confirm": "Sign out and erase data"
     }
+  },
+  "reminder": {
+    "title": "Daily reminders",
+    "body": "Get a gentle nudge at the time you chose. If you already checked in today, we send nothing.",
+    "activate": "Turn on reminder",
+    "deactivate": "Turn off reminder",
+    "statusActive": "Reminder is on. You can turn it off whenever you like.",
+    "statusDenied": "Permission denied. Turn on notifications in your browser settings to get reminders.",
+    "statusUnsupported": "This browser does not support push notifications.",
+    "statusInstall": "On iPhone or iPad, add the app to your Home Screen to turn on reminders.",
+    "statusUnavailable": "Notifications are not available yet. Please try again later.",
+    "statusError": "We could not turn it on right now. Please try again.",
+    "iosNotice": "On iOS, reminders work with the installed app.",
+    "iosSteps": "Tap Share, then Add to Home Screen.",
+    "iosDismiss": "Got it"
   }
 }

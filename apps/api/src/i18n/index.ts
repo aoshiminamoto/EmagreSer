@@ -13,3 +13,15 @@ const catalogs: Record<ServerLocale, ServerMessages> = {
 export function messagesFor(locale: ServerLocale): ServerMessages {
   return catalogs[locale] ?? ptBR
 }
+
+/** RF-40: textos variados e sem dado de saúde; o índice é determinístico por dia. */
+export function reminderTextFor(
+  locale: ServerLocale,
+  index: number,
+): { title: string; body: string } {
+  const { titles, bodies } = messagesFor(locale).reminder
+  return {
+    title: titles[index % titles.length] ?? titles[0] ?? '',
+    body: bodies[index % bodies.length] ?? bodies[0] ?? '',
+  }
+}

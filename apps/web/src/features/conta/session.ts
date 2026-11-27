@@ -17,6 +17,7 @@ import {
   type TokenResponse,
 } from '../../net/auth-client'
 import { onLogin } from '../../bootstrap'
+import { unregisterOnSignOut } from '../lembretes/activation'
 import { updateSyncState } from '../../sync/status'
 
 let invalidated = false
@@ -68,6 +69,7 @@ export async function forgetSessionLocally(): Promise<void> {
 
 /** RF-50: confirmação feita, apaga os dados locais mesmo sem rede. */
 export async function signOut(): Promise<void> {
+  await unregisterOnSignOut()
   try {
     await apiFetch('/api/v1/auth/logout', { method: 'POST' })
   } catch {

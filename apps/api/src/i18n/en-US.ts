@@ -21,6 +21,14 @@ export const enUS: ServerMessages = {
     clientUpdatedAt: 'Updated at',
     deletedAt: 'Deleted at',
   },
+  reminder: {
+    titles: ['Good morning!', 'A gentle reminder', 'Your check-in for today'],
+    bodies: [
+      'How about a quick check-in to follow your journey?',
+      'If you can, take a minute for today’s check-in.',
+      'A quick check-in helps show your trend over time.',
+    ],
+  },
   subject: 'Reset your EmagreSer password',
   body: (url) =>
     `We received a request to reset the password of your EmagreSer account.\n\n` +

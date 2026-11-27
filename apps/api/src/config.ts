@@ -30,6 +30,16 @@ function urlFrom(name: string, fallback: string): string {
   return fallback
 }
 
+/** VAPID só é obrigatório em produção; em dev/teste a ausência desliga o push. */
+function vapidFrom(name: string): string {
+  const value = process.env[name]
+  if (value) return value
+  if (nodeEnv === 'production') {
+    throw new Error(`Variável de ambiente obrigatória ausente: ${name}`)
+  }
+  return ''
+}
+
 export interface AppConfig {
   port: number
   host: string
@@ -42,6 +52,9 @@ export interface AppConfig {
   cookieSecret: string
   cookieSecure: boolean
   appOrigin: string
+  vapidPublicKey: string
+  vapidPrivateKey: string
+  vapidSubject: string
   smtpUrl: string
   mailFrom: string
   accessTokenTtlSeconds: number
@@ -69,6 +82,9 @@ export const config: AppConfig = {
   cookieSecret: secretFrom('COOKIE_SECRET'),
   cookieSecure: booleanFrom(process.env.COOKIE_SECURE, nodeEnv === 'production'),
   appOrigin: process.env.APP_ORIGIN ?? 'http://localhost:3000',
+  vapidPublicKey: vapidFrom('VAPID_PUBLIC_KEY'),
+  vapidPrivateKey: vapidFrom('VAPID_PRIVATE_KEY'),
+  vapidSubject: vapidFrom('VAPID_SUBJECT'),
   smtpUrl: process.env.SMTP_URL ?? 'smtp://localhost:1025',
   mailFrom: process.env.SMTP_FROM ?? 'EmagreSer <nao-responda@emagreser.local>',
   accessTokenTtlSeconds: 15 * 60,

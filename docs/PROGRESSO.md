@@ -15,7 +15,7 @@ Atualizado pelo agente ao fim de cada sessão. Marque `[x]` e preencha a data (A
 | 09 | 5 | Gráfico de tendência e metas | Média | [x] | 2026-11-26 |
 | 10 | 6 | Hábitos, água e streak | Média | [x] | 2026-11-26 |
 | 11 | 7 | Diário de humor e mensagens de acolhimento | Pequena | [x] | 2026-11-26 |
-| 12 | 8 | Lembretes por Web Push | Grande | [ ] | |
+| 12 | 8 | Lembretes por Web Push | Grande | [x] | 2026-11-26 |
 | 13 | 9 | Galeria de evolução (fotos) | Pequena | [ ] | |
 | 14 | 10 | Configurações, privacidade, IMC e idioma | Grande | [ ] | |
 | 15 | 11A | Detecção de dispositivo, landing de desktop e instalação | Média | [ ] | |

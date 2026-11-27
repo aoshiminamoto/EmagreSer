@@ -21,6 +21,14 @@ export const es419: ServerMessages = {
     clientUpdatedAt: 'Actualizado el',
     deletedAt: 'Eliminado el',
   },
+  reminder: {
+    titles: ['¡Buenos días!', 'Un recordatorio amable', 'Tu pausa de hoy'],
+    bodies: [
+      '¿Qué tal un registro rápido para acompañar tu camino?',
+      'Si puedes, dedica un minuto a tu registro de hoy.',
+      'Un registro rápido ayuda a ver tu tendencia con el tiempo.',
+    ],
+  },
   subject: 'Restablece tu contraseña de EmagreSer',
   body: (url) =>
     `Recibimos una solicitud para restablecer la contraseña de tu cuenta EmagreSer.\n\n` +

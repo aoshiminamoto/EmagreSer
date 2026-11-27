@@ -269,5 +269,20 @@
       "cancel": "Cancelar",
       "confirm": "Salir y borrar datos"
     }
+  },
+  "reminder": {
+    "title": "Recordatorios diarios",
+    "body": "Recibe un aviso amable a la hora elegida. Si ya registraste el día, no enviamos nada.",
+    "activate": "Activar recordatorio",
+    "deactivate": "Desactivar recordatorio",
+    "statusActive": "Recordatorio activo. Puedes desactivarlo cuando quieras.",
+    "statusDenied": "Permiso denegado. Activa las notificaciones en los ajustes del navegador para recibir el recordatorio.",
+    "statusUnsupported": "Este navegador no admite notificaciones push.",
+    "statusInstall": "En iPhone o iPad, agrega la app a la pantalla de inicio para activar los recordatorios.",
+    "statusUnavailable": "Las notificaciones aún no están disponibles. Inténtalo de nuevo más tarde.",
+    "statusError": "No se pudo activar ahora. Inténtalo de nuevo.",
+    "iosNotice": "En iOS, los recordatorios funcionan con la app instalada.",
+    "iosSteps": "Toca Compartir y después Agregar a la pantalla de inicio.",
+    "iosDismiss": "Entendido"
   }
 }

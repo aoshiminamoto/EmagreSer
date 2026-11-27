@@ -16,6 +16,7 @@
     "build": "npm run build --workspaces --if-present",
     "i18n:check": "node scripts/i18n-check.mjs",
     "flags:set": "tsx apps/api/src/flags/set-cli.ts",
+    "vapid:keys": "node scripts/vapid-keys.mjs",
     "check:prod-env": "node scripts/check-prod-env.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

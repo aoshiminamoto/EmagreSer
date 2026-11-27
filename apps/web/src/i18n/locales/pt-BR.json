@@ -269,5 +269,20 @@
       "cancel": "Cancelar",
       "confirm": "Sair e apagar dados"
     }
+  },
+  "reminder": {
+    "title": "Lembretes diários",
+    "body": "Receba um aviso gentil no horário escolhido. Se você já registrou o dia, não enviamos nada.",
+    "activate": "Ativar lembrete",
+    "deactivate": "Desativar lembrete",
+    "statusActive": "Lembrete ativo. Você pode desativar quando quiser.",
+    "statusDenied": "Permissão negada. Ative as notificações nas configurações do navegador para receber o lembrete.",
+    "statusUnsupported": "Este navegador não oferece notificações push.",
+    "statusInstall": "No iPhone ou iPad, adicione o app à Tela de Início para ativar os lembretes.",
+    "statusUnavailable": "O envio de notificações ainda não está disponível. Tente novamente mais tarde.",
+    "statusError": "Não foi possível ativar agora. Tente novamente.",
+    "iosNotice": "No iOS, os lembretes funcionam com o app instalado.",
+    "iosSteps": "Toque em Compartilhar e depois em Adicionar à Tela de Início.",
+    "iosDismiss": "Entendi"
   }
 }
