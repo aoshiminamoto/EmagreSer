@@ -4,9 +4,9 @@
  * domínio não publica `.d.ts` (D-36).
  */
 import { db } from '../data/db'
-import type { CalendarDate, WeightEntry } from '../data/entities'
+import type { CalendarDate, Milestone, WeightEntry } from '../data/entities'
 import { getMeta, setMeta } from '../data/meta'
-import { putMilestone } from '../data/milestones'
+import { deleteMilestone, putMilestone } from '../data/milestones'
 import { getSettings } from '../data/settings'
 
 export interface StreakSnapshot {
@@ -44,6 +44,45 @@ export function achievedDateFor(
     .map((entry) => entry.date)
     .sort()
   return qualifying[0]
+}
+
+export interface MilestoneUpsert {
+  milestoneKg: number
+  achievedDate?: CalendarDate
+}
+
+export interface MilestonePlan {
+  upserts: MilestoneUpsert[]
+  stale: Milestone[]
+}
+
+/**
+ * RF-16: ao editar meta ou passo, marcos pendentes fora da nova lista saem;
+ * os já conquistados ficam com `achievedDate` e `celebrated` intactos.
+ */
+export function planMilestoneRegeneration(
+  values: readonly number[],
+  existing: readonly Milestone[],
+  entries: readonly WeightEntry[],
+): MilestonePlan {
+  const desired = new Set(values.map(roundKg))
+  const upserts: MilestoneUpsert[] = []
+  for (const milestoneKg of values.map(roundKg)) {
+    const active = existing.find(
+      (milestone) => milestone.deleted !== true && milestone.milestoneKg === milestoneKg,
+    )
+    const achievedDate = active?.achievedDate ?? achievedDateFor(milestoneKg, entries)
+    if (active === undefined || (active.achievedDate === undefined && achievedDate !== undefined)) {
+      upserts.push({ milestoneKg, ...(achievedDate === undefined ? {} : { achievedDate }) })
+    }
+  }
+  const stale = existing.filter(
+    (milestone) =>
+      milestone.deleted !== true &&
+      !desired.has(milestone.milestoneKg) &&
+      milestone.achievedDate === undefined,
+  )
+  return { upserts, stale }
 }
 
 /** RN-06: a união das datas com qualquer ação, sem repetição e sem futuro. */
@@ -106,21 +145,9 @@ export async function recalcAfterPull(now: Date = new Date()): Promise<void> {
       settings.targetWeightKg,
       settings.milestoneStepKg,
     )
-    for (const milestoneKg of values) {
-      const active = allMilestones.find(
-        (milestone) => milestone.milestoneKg === milestoneKg && milestone.deleted !== true,
-      )
-      const achievedDate = achievedDateFor(milestoneKg, entries)
-      if (active === undefined) {
-        await putMilestone(
-          { milestoneKg, ...(achievedDate === undefined ? {} : { achievedDate }) },
-          now,
-        )
-      } else if (active.achievedDate === undefined && achievedDate !== undefined) {
-        // RF-19: uma conquista já datada nunca é desfeita por edição posterior.
-        await putMilestone({ milestoneKg, achievedDate }, now)
-      }
-    }
+    const plan = planMilestoneRegeneration(values, allMilestones, entries)
+    for (const input of plan.upserts) await putMilestone(input, now)
+    for (const milestone of plan.stale) await deleteMilestone(milestone.id, now)
   }
 
   const dates: CalendarDate[] = [

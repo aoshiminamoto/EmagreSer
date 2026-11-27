@@ -11,7 +11,8 @@ Atualizado pelo agente ao fim de cada sessão. Marque `[x]` e preencha a data (A
 | 05 | 3A | Cliente: dados locais (Dexie e fila de saída) | Média | [x] | 2026-11-26 |
 | 06 | 3B | Cliente: motor de sincronização e flags | Grande | [x] | 2026-11-26 |
 | 07 | 4A | Telas de conta e onboarding | Grande | [x] | 2026-11-26 |
-| 08 | 4B | Registro de peso e histórico | Média | [x] | 2026-11-26 || 09 | 5 | Gráfico de tendência e metas | Média | [ ] | |
+| 08 | 4B | Registro de peso e histórico | Média | [x] | 2026-11-26 |
+| 09 | 5 | Gráfico de tendência e metas | Média | [x] | 2026-11-26 |
 | 10 | 6 | Hábitos, água e streak | Média | [ ] | |
 | 11 | 7 | Diário de humor e mensagens de acolhimento | Pequena | [ ] | |
 | 12 | 8 | Lembretes por Web Push | Grande | [ ] | |

@@ -2,21 +2,61 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import type { WeightEntry } from '../data/entities'
+import type { Milestone, Settings, WeightEntry } from '../data/entities'
+import { listMilestones } from '../data/milestones'
+import { getSettings } from '../data/settings'
 import { listWeightEntries } from '../data/weights'
-import { latestWeight } from '../features/peso/weight'
+import { nextPendingMilestone, progressPercent } from '../features/metas/milestones'
+import { latestWeight, roundKg } from '../features/peso/weight'
 import { formatDate, formatNumber, formatRelative } from '../i18n/format'
 
 const { t, locale } = useI18n()
 const router = useRouter()
 const entries = ref<WeightEntry[]>([])
+const milestones = ref<Milestone[]>([])
+const settings = ref<Settings | undefined>()
 const now = ref(new Date())
 const latest = computed(() => latestWeight(entries.value))
+const currentKg = computed(() => latest.value?.weightKg ?? null)
+const next = computed(() =>
+  currentKg.value === null ? undefined : nextPendingMilestone(milestones.value, currentKg.value),
+)
+const remainingKg = computed(() =>
+  next.value === undefined || currentKg.value === null
+    ? null
+    : roundKg(currentKg.value - next.value.milestoneKg),
+)
+const progress = computed(() => {
+  const config = settings.value
+  if (
+    config?.startWeightKg === undefined ||
+    config.targetWeightKg === undefined ||
+    currentKg.value === null
+  ) {
+    return null
+  }
+  return progressPercent(config.startWeightKg, currentKg.value, config.targetWeightKg)
+})
+const remainingText = computed(() =>
+  remainingKg.value === null
+    ? ''
+    : t('goals.remaining', {
+        count: remainingKg.value,
+        value: formatNumber(remainingKg.value, locale.value, 'weight'),
+      }),
+)
 
 onMounted(async () => {
   // RN-08: recalcula "hoje" e a lista ao abrir a tela.
   now.value = new Date()
-  entries.value = await listWeightEntries()
+  const [loadedEntries, loadedMilestones, loadedSettings] = await Promise.all([
+    listWeightEntries(),
+    listMilestones(),
+    getSettings(),
+  ])
+  entries.value = loadedEntries
+  milestones.value = loadedMilestones
+  settings.value = loadedSettings
 })
 
 function openRegister(): void {
@@ -42,6 +82,20 @@ function openRegister(): void {
         }}
       </p>
     </v-card>
+    <v-card v-if="progress !== null" class="today-card progress-card">
+      <p class="type-caption auth-muted">{{ t('goals.progress') }}</p>
+      <p class="type-body" data-testid="next-milestone-text">
+        {{ next === undefined ? t('goals.reached') : remainingText }}
+      </p>
+      <v-progress-linear
+        :model-value="progress"
+        color="primary"
+        rounded
+        height="10"
+        data-testid="goal-progress"
+      />
+      <p class="type-caption auth-muted">{{ formatNumber(progress / 100, locale, 'percent') }}</p>
+    </v-card>
     <v-btn color="primary" variant="flat" block data-testid="register-weight" @click="openRegister">
       {{ t('weight.today.record') }}
     </v-btn>
@@ -64,5 +118,13 @@ function openRegister(): void {
 
 .today-weight {
   color: #15803d;
+}
+
+.progress-card {
+  gap: 8px;
+}
+
+.progress-card p {
+  margin: 0;
 }
 </style>
