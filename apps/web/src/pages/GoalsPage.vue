@@ -7,6 +7,7 @@ import { getSettings, saveSettings } from '../data/settings'
 import { listWeightEntries } from '../data/weights'
 import { isValidTarget } from '../features/conta/onboarding'
 import { parseWeight, WEIGHT_STEP_OPTIONS } from '../features/conta/validation'
+import { isTargetBelowHealthyRange } from '../features/peso/bmi'
 import { nextPendingMilestone, progressPercent } from '../features/metas/milestones'
 import { latestWeight } from '../features/peso/weight'
 import { formatDate, formatNumber } from '../i18n/format'
@@ -39,6 +40,12 @@ const referenceKg = computed(
   () => settings.value?.startWeightKg ?? latestWeight(entries.value)?.weightKg ?? null,
 )
 const currentKg = computed(() => latestWeight(entries.value)?.weightKg ?? null)
+/** RN-10: aviso sem bloquear e sem revelar o número do IMC. */
+const targetWarning = computed(() => {
+  const target = parseWeight(targetRaw.value)
+  const height = settings.value?.heightCm
+  return target !== null && typeof height === 'number' && isTargetBelowHealthyRange(target, height)
+})
 const progress = computed(() => {
   const config = settings.value
   if (
@@ -175,6 +182,15 @@ async function saveEdit(): Promise<void> {
         :label="t('goals.stepLabel')"
         data-testid="goal-step-input"
       />
+      <div
+        v-if="targetWarning"
+        class="goal-warning"
+        role="status"
+        data-testid="goal-target-warning"
+      >
+        <v-icon icon="mdi-information-outline" color="text" size="20" />
+        <p class="type-caption">{{ t('bmi.targetWarning') }}</p>
+      </div>
       <p v-if="error" class="type-caption auth-error" data-testid="goal-error">{{ error }}</p>
       <div class="goal-dialog-actions">
         <v-btn variant="text" data-testid="goal-cancel" @click="editing = false">
@@ -236,6 +252,20 @@ async function saveEdit(): Promise<void> {
 }
 
 .milestone-info p {
+  margin: 0;
+}
+
+.goal-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #111827;
+}
+
+.goal-warning p {
   margin: 0;
 }
 

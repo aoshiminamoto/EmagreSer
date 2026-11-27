@@ -25,10 +25,10 @@ para culpa, punição ou julgamento (RF-31). A revisão deve preservar esse tom 
 
 | Conteúdo | Chaves | Situação |
 |---|---|---|
-| Aviso de peso-alvo (RN-10) | `goals.errorTarget`, `onboarding.error.target` | Já presentes; revisar junto com as mensagens |
-| Nota do IMC (RF-61) | `onboarding.bmi.*` (nota completa prevista para a Fase 10) | Revisar quando a tela de configurações existir |
+| Aviso de peso-alvo (RN-10) | `goals.errorTarget`, `onboarding.error.target`, `bmi.targetWarning` | Revisar junto com as mensagens; o aviso novo não revela o IMC |
+| Nota do IMC (RF-61) | `bmi.note`, `bmi.category.*` | Rascunho nos três idiomas; revisar antes de liberar os flags |
 | Consentimento (RF-46) | `auth.register.consentBefore`, `auth.register.consentLink`, `auth.register.consentAfter` | Já presentes; exigem leitura jurídica além da linguística |
-| Política de privacidade | `privacy.*` | Conteúdo mínimo da Fase 4A; versão definitiva na Fase 10 |
+| Política de privacidade | `privacy.*` | Versão completa da Fase 10 (dados, fotos, terceiros, página pública, aviso profissional); revisão pendente |
 
 ## Registro da revisão
 

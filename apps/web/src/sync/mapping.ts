@@ -41,6 +41,10 @@ function flag(value: unknown): boolean | undefined {
   return typeof value === 'boolean' ? value : undefined
 }
 
+function nullableNumber(value: unknown): number | null | undefined {
+  return value === null ? null : numeric(value)
+}
+
 function numbers(value: unknown): number[] | undefined {
   return Array.isArray(value) && value.every((item) => typeof item === 'number')
     ? (value as number[])
@@ -67,7 +71,7 @@ function fromLocal(data: Record<string, unknown>, entity: SyncEntity): Record<st
         water_glass_ml: numeric(data.waterGlassMl),
         locale: text(data.locale),
         onboarding_done: flag(data.onboardingDone),
-        height_cm: numeric(data.heightCm),
+        height_cm: nullableNumber(data.heightCm),
         bmi_visible: flag(data.bmiVisible),
       })
     case 'weight_entries':
@@ -134,7 +138,7 @@ function toLocalRecord(change: PullChange, existing: SyncRecord | undefined): Sy
         waterGlassMl: numeric(data.water_glass_ml),
         locale: text(data.locale),
         onboardingDone: flag(data.onboarding_done),
-        heightCm: numeric(data.height_cm),
+        heightCm: nullableNumber(data.height_cm),
         bmiVisible: flag(data.bmi_visible),
       })
       break

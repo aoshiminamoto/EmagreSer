@@ -1,7 +1,7 @@
 // Formatação acontece só na apresentação. Datas e horas chegam como texto (YYYY-MM-DD, HH:mm).
 
 export type DateStyle = 'short' | 'long' | 'monthYear'
-export type NumberKind = 'decimal' | 'weight' | 'percent' | 'count'
+export type NumberKind = 'decimal' | 'weight' | 'bmi' | 'percent' | 'count'
 
 function calendarDate(value: string): Date {
   const [year, month, day] = value.split('-').map(Number)
@@ -54,10 +54,12 @@ export function formatNumber(value: number, locale: string, kind: NumberKind = '
           minimumFractionDigits: 1,
           maximumFractionDigits: 1,
         }
-      : kind === 'percent'
-        ? { style: 'percent', maximumFractionDigits: 0 }
-        : kind === 'count'
-          ? { maximumFractionDigits: 0 }
-          : { maximumFractionDigits: 2 }
+      : kind === 'bmi'
+        ? { minimumFractionDigits: 1, maximumFractionDigits: 1 }
+        : kind === 'percent'
+          ? { style: 'percent', maximumFractionDigits: 0 }
+          : kind === 'count'
+            ? { maximumFractionDigits: 0 }
+            : { maximumFractionDigits: 2 }
   return new Intl.NumberFormat(locale, options).format(value)
 }

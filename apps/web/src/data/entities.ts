@@ -66,7 +66,8 @@ export interface Settings extends SyncRecord {
   waterGlassMl: number
   locale: string
   onboardingDone: boolean
-  heightCm?: number
+  /** `null` é tombstone do dado de IMC: limpa a altura no aparelho e no servidor. */
+  heightCm?: number | null
   bmiVisible: boolean
 }
 

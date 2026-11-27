@@ -48,6 +48,12 @@ describe('formatNumber', () => {
     expect(formatNumber(68.5, 'es-419', 'weight')).toBe('68.5 kg')
   })
 
+  it('IMC com exatamente uma casa decimal nos três idiomas', () => {
+    expect(formatNumber(24, 'pt-BR', 'bmi')).toBe('24,0')
+    expect(formatNumber(24.56, 'en-US', 'bmi')).toBe('24.6')
+    expect(formatNumber(24.56, 'es-419', 'bmi')).toBe('24.6')
+  })
+
   it('percentual e contador nos três idiomas', () => {
     expect(formatNumber(0.78, 'pt-BR', 'percent')).toBe('78%')
     expect(formatNumber(0.78, 'en-US', 'percent')).toBe('78%')

@@ -18,6 +18,11 @@ export const router = createRouter({
     { path: '/metas', name: 'goals', component: () => import('../pages/GoalsPage.vue') },
     { path: '/mais', name: 'more', component: () => import('../pages/MorePage.vue') },
     {
+      path: '/configuracoes',
+      name: 'settings',
+      component: () => import('../pages/SettingsPage.vue'),
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../pages/LoginPage.vue'),

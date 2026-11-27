@@ -3,8 +3,9 @@ import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Milestone, Settings, WeightEntry } from '../data/entities'
 import { listMilestones } from '../data/milestones'
-import { getSettings } from '../data/settings'
+import { getSettings, saveSettings } from '../data/settings'
 import { listWeightEntries } from '../data/weights'
+import BmiCard from '../components/BmiCard.vue'
 import TrendChart from '../features/grafico/TrendChart.vue'
 import MoodDistribution from '../features/humor/MoodDistribution.vue'
 import {
@@ -46,6 +47,12 @@ function weightLabel(value: number | null): string {
 function deltaLabel(value: number | null): string {
   if (value === null) return t('chart.noData')
   return `${value > 0 ? '+' : ''}${formatNumber(value, locale.value, 'weight')}`
+}
+
+/** RF-59: o olho do cartão esconde o IMC na hora, sem apagar a altura. */
+async function hideBmi(): Promise<void> {
+  const updated = await saveSettings({ bmiVisible: false })
+  settings.value = updated
 }
 
 onMounted(async () => {
@@ -124,6 +131,12 @@ onMounted(async () => {
         </p>
       </div>
     </div>
+    <BmiCard
+      v-if="settings?.bmiVisible === true"
+      :entries="entries"
+      :height-cm="settings?.heightCm"
+      @hide="hideBmi"
+    />
     <v-card class="gallery-shortcut" data-testid="gallery-shortcut-card">
       <div>
         <p class="type-h3">{{ t('photo.title') }}</p>

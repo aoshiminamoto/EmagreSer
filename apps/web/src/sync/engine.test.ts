@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { db } from '../data/db'
 import { getLastPullCursor } from '../data/meta'
 import { listOutbox } from '../data/outbox'
+import { saveSettings } from '../data/settings'
 import { getWeightEntry, putWeightEntry } from '../data/weights'
 import { clearSession, setSession } from '../net/auth-client'
 import { backoffDelay, runSync, withSyncLock } from './engine'
@@ -144,6 +145,32 @@ describe('motor de sincronização', () => {
     await runSync()
     expect(await getWeightEntry('2026-11-26')).toMatchObject({ weightKg: 71 })
     expect(await listOutbox()).toHaveLength(1)
+  })
+
+  it('limpar a altura do IMC envia null ao servidor (RF-62)', async () => {
+    await saveSettings({ heightCm: 170, bmiVisible: true }, started)
+    await saveSettings({ heightCm: null, bmiVisible: false }, started)
+    let pushed:
+      { changes: Array<{ entity: string; id: string; data: Record<string, unknown> }> } | undefined
+    responder = (url, init) => {
+      if (url.includes('/sync/push')) {
+        pushed = JSON.parse(String(init?.body)) as typeof pushed
+        return response({
+          applied: pushed?.changes.map((change, index) => ({
+            entity: change.entity,
+            id: change.id,
+            changeSeq: index + 1,
+          })),
+          conflicts: [],
+          cursor: 1,
+        })
+      }
+      return response({ changes: [], nextCursor: 1, hasMore: false })
+    }
+
+    expect(await runSync()).toBe(true)
+    const changes = (pushed?.changes ?? []).filter((change) => change.entity === 'settings')
+    expect(changes.at(-1)?.data).toMatchObject({ height_cm: null, bmi_visible: false })
   })
 
   it('falha 401 preserva a fila e os dados locais', async () => {
