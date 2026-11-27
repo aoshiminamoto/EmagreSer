@@ -11,13 +11,19 @@ import {
   startCelebrationListener,
 } from './features/metas/celebration'
 import MilestoneCelebration from './features/metas/MilestoneCelebration.vue'
+import PostSavePrompts from './features/humor/PostSavePrompts.vue'
+import { startPostSaveListener } from './features/humor/queue'
 
 const { t, locale } = useI18n()
 const route = useRoute()
 const bare = computed(() => route.meta.bare === true)
 const { needRefresh, updateServiceWorker } = useRegisterSW({ immediate: true })
 const stopCelebration = startCelebrationListener()
-onUnmounted(stopCelebration)
+const stopPostSave = startPostSaveListener()
+onUnmounted(() => {
+  stopCelebration()
+  stopPostSave()
+})
 </script>
 
 <template>
@@ -43,5 +49,6 @@ onUnmounted(stopCelebration)
       </template>
     </v-snackbar>
     <MilestoneCelebration :data="celebration" :locale="locale" @close="dismissCelebration" />
+    <PostSavePrompts :blocked="celebration !== null" />
   </v-app>
 </template>

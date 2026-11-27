@@ -69,6 +69,8 @@ test('registrar em dois toques, validar e editar/apagar com fila de saída', asy
   await fillField(page, 'weight-input', '78,5')
   await page.getByTestId('weight-save').click()
   await expect(page).toHaveURL(/\/$/)
+  await expect(page.getByTestId('mood-prompt')).toBeVisible()
+  await page.getByTestId('mood-skip').click()
   await expect(page.getByTestId('current-weight')).toContainText('78')
 
   await page.goto('/historico')
@@ -78,6 +80,8 @@ test('registrar em dois toques, validar e editar/apagar com fila de saída', asy
   await fillField(page, 'weight-input', '78,2')
   await page.getByTestId('weight-save').click()
   await expect(page).toHaveURL(/\/historico$/)
+  await expect(page.getByTestId('mood-prompt')).toBeVisible()
+  await page.getByTestId('mood-skip').click()
   await expect(page.getByTestId(`history-row-${today}`)).toContainText('78')
 
   await page.getByTestId(`history-delete-${today}`).click()

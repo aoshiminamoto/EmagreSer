@@ -36,6 +36,15 @@ export async function setLocalePref(locale: string): Promise<void> {
   await setMeta('localePref', locale)
 }
 
+/** RF-30: última mensagem de acolhimento exibida; só existe no aparelho. */
+export function getWelcomeLastIndex(): Promise<number | undefined> {
+  return getMeta<number>('welcomeLastIndex')
+}
+
+export async function setWelcomeLastIndex(index: number): Promise<void> {
+  await setMeta('welcomeLastIndex', index)
+}
+
 /** Último resultado de `GET /flags`, guardado para uso sem rede. */
 export interface FlagCache {
   flags: Record<string, boolean>

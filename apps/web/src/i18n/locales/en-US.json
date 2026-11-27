@@ -101,7 +101,24 @@
     "labelFeliz": "Happy",
     "labelAnsioso": "Anxious",
     "labelCansado": "Tired",
-    "labelEstressado": "Stressed"
+    "labelEstressado": "Stressed",
+    "promptTitle": "How did you feel today?",
+    "promptBody": "Optional. Noticing your mood helps you follow your days. You can skip it.",
+    "skip": "Skip",
+    "title": "Moods in the last 30 days",
+    "empty": "No moods logged in the last 30 days."
+  },
+  "welcome": {
+    "title": "A gentle reminder",
+    "continue": "Continue",
+    "m1": "Your body fluctuates throughout the week, and that's normal. Water retention can change the number without changing your progress.",
+    "m2": "One day doesn't define your journey. What matters is the trend, and you're staying with it.",
+    "m3": "Thank you for logging today. Coming back to caring for yourself is already an achievement.",
+    "m4": "Today's number is just one point on the path. Hydration, sleep and food are part of the picture too.",
+    "m5": "Small variations are part of the process. Keep noticing your body with curiosity and kindness.",
+    "m6": "You're building a routine, and routines are made day by day. This log is already part of it.",
+    "m7": "You don't have to get it right every day. What matters is coming back, at your own pace.",
+    "m8": "The trend is what matters, and it takes shape over time. Today's care counts toward it."
   },
   "habit": {
     "title": "Today's habits",

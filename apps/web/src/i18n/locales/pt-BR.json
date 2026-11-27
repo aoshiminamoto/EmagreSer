@@ -101,7 +101,24 @@
     "labelFeliz": "Feliz",
     "labelAnsioso": "Ansioso",
     "labelCansado": "Cansado",
-    "labelEstressado": "Estressado"
+    "labelEstressado": "Estressado",
+    "promptTitle": "Como você se sentiu hoje?",
+    "promptBody": "Opcional. Perceber o seu humor ajuda a acompanhar os seus dias. Pode pular.",
+    "skip": "Pular",
+    "title": "Humores dos últimos 30 dias",
+    "empty": "Nenhum humor registrado nos últimos 30 dias."
+  },
+  "welcome": {
+    "title": "Um lembrete gentil",
+    "continue": "Continuar",
+    "m1": "Seu corpo oscila ao longo da semana, e isso é normal. Retenção de líquido pode mudar o número sem mudar o seu progresso.",
+    "m2": "Um dia não define sua jornada. O que conta é a tendência, e você continua firme nela.",
+    "m3": "Obrigado por registrar mesmo hoje. Voltar a se cuidar já é uma conquista.",
+    "m4": "O número de hoje é só um ponto no caminho. Hidratação, sono e alimentação também fazem parte dessa conta.",
+    "m5": "Pequenas variações fazem parte do processo. Continue se observando com curiosidade e gentileza.",
+    "m6": "Você está construindo uma rotina, e rotinas se fazem dia a dia. Este registro já faz parte dela.",
+    "m7": "Não é preciso acertar todos os dias. O importante é continuar voltando, no seu ritmo.",
+    "m8": "A tendência é o que importa, e ela se desenha com o tempo. Seu cuidado de hoje conta para ela."
   },
   "habit": {
     "title": "Hábitos de hoje",

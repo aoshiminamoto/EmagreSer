@@ -101,7 +101,24 @@
     "labelFeliz": "Feliz",
     "labelAnsioso": "Ansioso",
     "labelCansado": "Cansado",
-    "labelEstressado": "Estresado"
+    "labelEstressado": "Estresado",
+    "promptTitle": "¿Cómo te sentiste hoy?",
+    "promptBody": "Opcional. Notar tu ánimo te ayuda a seguir tus días. Puedes omitirlo.",
+    "skip": "Omitir",
+    "title": "Ánimo en los últimos 30 días",
+    "empty": "No hay ánimos registrados en los últimos 30 días."
+  },
+  "welcome": {
+    "title": "Un recordatorio amable",
+    "continue": "Continuar",
+    "m1": "Tu cuerpo oscila durante la semana, y eso es normal. La retención de líquidos puede cambiar el número sin cambiar tu progreso.",
+    "m2": "Un día no define tu camino. Lo que cuenta es la tendencia, y tú sigues en ella.",
+    "m3": "Gracias por registrar hoy. Volver a cuidarte ya es un logro.",
+    "m4": "El número de hoy es solo un punto del camino. La hidratación, el sueño y la alimentación también cuentan.",
+    "m5": "Las pequeñas variaciones son parte del proceso. Sigue observándote con curiosidad y amabilidad.",
+    "m6": "Estás construyendo una rutina, y las rutinas se hacen día a día. Este registro ya forma parte de ella.",
+    "m7": "No hace falta acertar todos los días. Lo importante es volver, a tu propio ritmo.",
+    "m8": "Lo que importa es la tendencia, y se dibuja con el tiempo. Tu cuidado de hoy cuenta para ella."
   },
   "habit": {
     "title": "Hábitos de hoy",

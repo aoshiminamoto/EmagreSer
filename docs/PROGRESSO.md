@@ -14,7 +14,7 @@ Atualizado pelo agente ao fim de cada sessão. Marque `[x]` e preencha a data (A
 | 08 | 4B | Registro de peso e histórico | Média | [x] | 2026-11-26 |
 | 09 | 5 | Gráfico de tendência e metas | Média | [x] | 2026-11-26 |
 | 10 | 6 | Hábitos, água e streak | Média | [x] | 2026-11-26 |
-| 11 | 7 | Diário de humor e mensagens de acolhimento | Pequena | [ ] | |
+| 11 | 7 | Diário de humor e mensagens de acolhimento | Pequena | [x] | 2026-11-26 |
 | 12 | 8 | Lembretes por Web Push | Grande | [ ] | |
 | 13 | 9 | Galeria de evolução (fotos) | Pequena | [ ] | |
 | 14 | 10 | Configurações, privacidade, IMC e idioma | Grande | [ ] | |

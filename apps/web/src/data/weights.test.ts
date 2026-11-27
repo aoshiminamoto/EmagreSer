@@ -8,6 +8,7 @@ import {
   getWeightEntry,
   listWeightEntries,
   putWeightEntry,
+  setWeightMood,
   WeightDateConflictError,
   WeightEntryNotFoundError,
 } from './weights'
@@ -72,6 +73,24 @@ describe('repositório de peso', () => {
     await expect(
       editWeightEntry('inexistente', { date: '2026-11-24', weightKg: 68 }, second),
     ).rejects.toBeInstanceOf(WeightEntryNotFoundError)
+  })
+
+  it('grava o humor escolhido após salvar e mantém o registro na fila', async () => {
+    const entry = await putWeightEntry({ date: '2026-11-26', weightKg: 70, note: 'leve' }, first)
+    await setWeightMood(entry.id, 'feliz', second)
+
+    expect(await getWeightEntry('2026-11-26')).toMatchObject({
+      mood: 'feliz',
+      note: 'leve',
+      updatedAt: second.toISOString(),
+    })
+    expect(await listOutbox()).toMatchObject([
+      {},
+      { entity: 'weight_entries', op: 'upsert', data: { mood: 'feliz' } },
+    ])
+    await expect(setWeightMood('inexistente', 'feliz', second)).rejects.toBeInstanceOf(
+      WeightEntryNotFoundError,
+    )
   })
 
   it('permite recriar um peso na mesma data depois da exclusão', async () => {

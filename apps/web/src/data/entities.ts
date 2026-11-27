@@ -96,7 +96,13 @@ export interface OutboxChange {
 }
 
 export type MetaKey =
-  'deviceId' | 'lastPullCursor' | 'localePref' | 'flags' | 'streak' | 'sessionActive'
+  | 'deviceId'
+  | 'lastPullCursor'
+  | 'localePref'
+  | 'flags'
+  | 'streak'
+  | 'sessionActive'
+  | 'welcomeLastIndex'
 
 export interface MetaRecord {
   key: MetaKey

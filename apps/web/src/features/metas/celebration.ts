@@ -10,6 +10,8 @@ import { selectCelebration, type CelebrationSelection } from './milestones'
 export const celebration = shallowRef<CelebrationSelection | null>(null)
 
 let running = false
+/** Fase 7: a avaliação corrente, para a fila pós-salvamento esperar a celebração. */
+let lastEvaluation: Promise<void> = Promise.resolve()
 
 export async function evaluateCelebration(): Promise<void> {
   if (running) return
@@ -36,8 +38,13 @@ export async function evaluateCelebration(): Promise<void> {
 /** Inscrição única no barramento de peso; chamada na raiz do app. */
 export function startCelebrationListener(): () => void {
   return onPesoEvent('milestone:evaluate', () => {
-    void evaluateCelebration()
+    lastEvaluation = evaluateCelebration()
   })
+}
+
+/** A fila de acolhimento/humor só avança depois que a celebração foi avaliada. */
+export function celebrationSettled(): Promise<void> {
+  return lastEvaluation
 }
 
 export function dismissCelebration(): void {

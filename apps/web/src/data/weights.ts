@@ -80,6 +80,19 @@ export async function getWeightEntry(date: CalendarDate): Promise<WeightEntry | 
     .first()
 }
 
+/** RF-27: o humor escolhido depois do salvamento atualiza o registro e sincroniza. */
+export async function setWeightMood(id: string, mood: Mood, now: Date = new Date()): Promise<void> {
+  const current = await db.weightEntries.get(id)
+  if (current === undefined || current.deleted) throw new WeightEntryNotFoundError()
+  const record: WeightEntry = {
+    ...current,
+    mood,
+    deleted: false,
+    updatedAt: now.toISOString(),
+  }
+  await writeWithOutbox(db.weightEntries, record, 'weight_entries', 'upsert')
+}
+
 export async function listWeightEntries(): Promise<WeightEntry[]> {
   const entries = await db.weightEntries.toArray()
   return entries.filter((entry) => !entry.deleted).sort((a, b) => a.date.localeCompare(b.date))

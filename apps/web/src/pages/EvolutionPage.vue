@@ -6,6 +6,7 @@ import { listMilestones } from '../data/milestones'
 import { getSettings } from '../data/settings'
 import { listWeightEntries } from '../data/weights'
 import TrendChart from '../features/grafico/TrendChart.vue'
+import MoodDistribution from '../features/humor/MoodDistribution.vue'
 import {
   buildTrend,
   isTrendEmpty,
@@ -123,6 +124,7 @@ onMounted(async () => {
         </p>
       </div>
     </div>
+    <MoodDistribution :entries="entries" :today="today" />
   </v-container>
 </template>
 
