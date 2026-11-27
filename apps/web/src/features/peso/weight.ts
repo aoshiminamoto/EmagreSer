@@ -103,6 +103,17 @@ export function latestWeight(entries: readonly WeightEntry[]): WeightEntry | nul
   return latest
 }
 
+/**
+ * RF-02/RN-02: validar a meta contra o peso atual registrado, não contra o
+ * peso inicial (que pode ter sido editado depois). O inicial é só fallback.
+ */
+export function targetReferenceKg(
+  entries: readonly WeightEntry[],
+  startWeightKg: number | undefined,
+): number | null {
+  return latestWeight(entries)?.weightKg ?? startWeightKg ?? null
+}
+
 /** RN-01: média dos 7 dias que terminam em `endDate`, sem preenchimento. */
 export function movingAverageBefore(
   entries: readonly WeightEntry[],

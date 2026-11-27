@@ -87,3 +87,29 @@ test('tendência, barra de progresso e marcos celebrados uma única vez', async 
   await expect(page.getByTestId('goal-row-72')).toHaveCount(0)
   await expect(page.getByTestId('goal-row-68')).toContainText('Pendente')
 })
+
+test('a meta é validada contra o peso atual após editar o registro (RF-02/RN-02)', async ({
+  page,
+}) => {
+  const email = `meta-subida-${Date.now()}@example.com`
+  await registerAccount(page.request, email)
+  await signInThroughUi(page, email)
+  await completeOnboardingThroughUi(page)
+  const date = await browserToday(page)
+
+  // Peso inicial 80 é editado para 97: o startWeightKg continua 80.
+  await page.goto('/historico')
+  await page.getByTestId(`history-edit-${date}`).click()
+  await fillField(page, 'weight-input', '97')
+  await page.getByTestId('weight-save').click()
+  await expect(page.getByTestId('mood-prompt')).toBeVisible()
+  await page.getByTestId('mood-skip').click()
+
+  // 85 < 97 deve ser aceito; falharia se comparasse com o peso inicial.
+  await page.goto('/configuracoes')
+  await fillField(page, 'settings-target-input', '85')
+  await page.getByTestId('settings-save').click()
+  await expect(page.getByTestId('settings-message')).toBeVisible()
+  await expect(page.getByTestId('settings-error')).toHaveCount(0)
+  await expect(page.getByTestId('settings-target-input').locator('input')).toHaveValue('85')
+})

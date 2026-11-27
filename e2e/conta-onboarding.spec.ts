@@ -33,15 +33,16 @@ test('cadastro, onboarding e reabertura sem rede levam ao Hoje', async ({ page, 
   await signInThroughUi(page, email)
   await completeOnboardingThroughUi(page)
 
-  await expect(page.getByRole('heading', { name: 'Hoje' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Hoje', exact: true })).toBeVisible()
   const settings = await readSettings(page)
   expect(settings).toMatchObject({ onboardingDone: true, bmiVisible: false })
-  expect(settings?.heightCm).toBeUndefined()
+  // O pull pode gravar height_cm: null (tombstone do IMC, D-79) sem altura informada.
+  expect(settings?.heightCm ?? undefined).toBeUndefined()
 
   // Falha de rede na renovação do token: a marca local mantém a sessão.
   await context.route('**/api/v1/auth/refresh', (route) => route.abort())
   await page.reload()
-  await expect(page.getByRole('heading', { name: 'Hoje' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Hoje', exact: true })).toBeVisible()
 })
 
 test('fechar no meio do onboarding recomeça do passo 1', async ({ page }) => {

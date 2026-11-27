@@ -12,6 +12,7 @@ import {
   movingAverageBefore,
   parseDecimal,
   parseWeightKg,
+  targetReferenceKg,
 } from './weight'
 
 function entry(date: string, weightKg: number): WeightEntry {
@@ -71,6 +72,13 @@ describe('média móvel e subida (RN-01/RN-02/RN-05)', () => {
     expect(latestWeight([entry('2026-01-01', 71), entry('2026-01-02', 70)])).toMatchObject({
       weightKg: 70,
     })
+  })
+
+  it('meta é validada contra o peso atual, não contra o peso inicial', () => {
+    const edited = [entry('2026-01-01', 80), entry('2026-01-02', 97)]
+    expect(targetReferenceKg(edited, 80)).toBe(97)
+    expect(targetReferenceKg([], 80)).toBe(80)
+    expect(targetReferenceKg([], undefined)).toBeNull()
   })
 
   it('média ignora dias sem registro e intervalos fora da janela', () => {

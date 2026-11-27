@@ -21,15 +21,20 @@ async function localDatabases(page: Page): Promise<string[]> {
   return page.evaluate(async () => (await indexedDB.databases()).map((item) => item.name ?? ''))
 }
 
-test.describe('desktop recebe a landing (RN-13/RF-65 a RF-70)', () => {
-  test('bloqueia rotas internas e não registra service worker nem IndexedDB', async ({ page }) => {
-    const apiCalls: string[] = []
-    page.on('request', (request) => {
-      if (request.url().includes('/api/v1/auth') || request.url().includes('/api/v1/sync')) {
-        apiCalls.push(request.url())
-      }
-    })
+test('desktop recebe a landing e não registra service worker nem IndexedDB', async ({
+  browser,
+}) => {
+  // Contexto explicitamente desktop: o resto da suíte usa emulação móvel (RN-13).
+  const context = await browser.newContext({ ...devices['Desktop Chrome'] })
+  const page = await context.newPage()
+  const apiCalls: string[] = []
+  page.on('request', (request) => {
+    if (request.url().includes('/api/v1/auth') || request.url().includes('/api/v1/sync')) {
+      apiCalls.push(request.url())
+    }
+  })
 
+  try {
     await page.goto('/')
     await expect(page.getByTestId('landing-restriction')).toBeVisible()
     await expect(page.getByTestId('landing-qr')).toBeVisible()
@@ -49,14 +54,16 @@ test.describe('desktop recebe a landing (RN-13/RF-65 a RF-70)', () => {
     await page.goto('/privacidade')
     await expect(page.getByTestId('privacy-version')).toBeVisible()
     expect(apiCalls).toEqual([])
-  })
+  } finally {
+    await context.close()
+  }
 })
 
 test('celular carrega o app direto e registra o service worker (RN-11/RN-12)', async ({
   browser,
 }) => {
   // Playwright usa emulação de dispositivo móvel (RN-13), sem bypass de desktop.
-  const context = await browser.newContext({ ...devices['iPhone 13'] })
+  const context = await browser.newContext({ ...devices['Pixel 5'] })
   const page = await context.newPage()
   try {
     await page.goto('/')
@@ -72,11 +79,11 @@ test('convite de instalação aparece depois do onboarding e respeita 14 dias (R
   browser,
   request,
 }) => {
-  const context = await browser.newContext({ ...devices['iPhone 13'] })
+  const context = await browser.newContext({ ...devices['Pixel 5'] })
   const page = await context.newPage()
   try {
     await registerAndSignIn(request, page, `install-${Date.now()}@example.com`)
-    // Sem beforeinstallprompt (iPhone), o aviso manual aparece só depois do onboarding.
+    // Sem beforeinstallprompt, o aviso manual aparece só depois do onboarding.
     await expect(page.getByTestId('install-banner')).toBeVisible()
     await expect(page.getByTestId('install-action')).toHaveCount(0)
 

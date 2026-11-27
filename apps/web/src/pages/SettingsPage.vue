@@ -20,7 +20,7 @@ import { isValidTarget } from '../features/conta/onboarding'
 import { isValidTime, parseHeight, WEIGHT_STEP_OPTIONS } from '../features/conta/validation'
 import { apiJson, ApiError, NetworkError } from '../net/auth-client'
 import { isTargetBelowHealthyRange } from '../features/peso/bmi'
-import { latestWeight, parseDecimal } from '../features/peso/weight'
+import { parseDecimal, targetReferenceKg } from '../features/peso/weight'
 import { formatTime } from '../i18n/format'
 import { recalcAfterPull } from '../sync/recalc'
 
@@ -68,9 +68,7 @@ const dayOptions = computed(() => [
   { value: 7, title: t('settings.daySun') },
 ])
 const hasSavedHeight = computed(() => typeof settings.value?.heightCm === 'number')
-const referenceKg = computed(
-  () => settings.value?.startWeightKg ?? latestWeight(entries.value)?.weightKg ?? null,
-)
+const referenceKg = computed(() => targetReferenceKg(entries.value, settings.value?.startWeightKg))
 const targetWarning = computed(() => {
   const target = parseDecimal(targetRaw.value)
   const height = settings.value?.heightCm

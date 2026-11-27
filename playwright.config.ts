@@ -11,7 +11,9 @@ export default defineConfig({
   reporter: 'list',
   use: {
     baseURL: 'http://127.0.0.1:3000',
-    ...devices['Desktop Chrome'],
+    // RN-13: os testes de fluxo usam emulação de dispositivo móvel. O teste de
+    // bloqueio de desktop cria o próprio contexto sem emulação.
+    ...devices['Pixel 5'],
   },
   webServer: {
     command: 'npm run build && npm run start --workspace @emagreser/api',

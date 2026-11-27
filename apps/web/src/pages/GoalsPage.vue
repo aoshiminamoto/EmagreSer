@@ -9,7 +9,7 @@ import { isValidTarget } from '../features/conta/onboarding'
 import { parseWeight, WEIGHT_STEP_OPTIONS } from '../features/conta/validation'
 import { isTargetBelowHealthyRange } from '../features/peso/bmi'
 import { nextPendingMilestone, progressPercent } from '../features/metas/milestones'
-import { latestWeight } from '../features/peso/weight'
+import { latestWeight, targetReferenceKg } from '../features/peso/weight'
 import { formatDate, formatNumber } from '../i18n/format'
 import { recalcAfterPull } from '../sync/recalc'
 
@@ -36,9 +36,7 @@ const stepOptions = computed(() =>
     title: t('onboarding.stepOption', { count: value }),
   })),
 )
-const referenceKg = computed(
-  () => settings.value?.startWeightKg ?? latestWeight(entries.value)?.weightKg ?? null,
-)
+const referenceKg = computed(() => targetReferenceKg(entries.value, settings.value?.startWeightKg))
 const currentKg = computed(() => latestWeight(entries.value)?.weightKg ?? null)
 /** RN-10: aviso sem bloquear e sem revelar o número do IMC. */
 const targetWarning = computed(() => {

@@ -23,7 +23,13 @@ const label = computed(() => {
 </script>
 
 <template>
-  <div class="sync-status" :class="`sync-status--${state.status}`" role="status" aria-live="polite">
+  <div
+    class="sync-status"
+    :class="`sync-status--${state.status}`"
+    role="status"
+    aria-live="polite"
+    data-testid="sync-status"
+  >
     <span class="sync-status__dot" aria-hidden="true" />
     <span>{{ label }}</span>
     <span v-if="state.downloaded > 0" class="sync-status__progress">

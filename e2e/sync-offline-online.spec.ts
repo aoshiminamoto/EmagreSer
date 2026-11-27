@@ -92,7 +92,7 @@ test('três pesos offline chegam ao servidor sem duplicar quando a rede volta', 
   const email = `offline-${Date.now()}@example.com`
   const token = await registerAndSignIn(page.request, page, email)
   await clearLocalWrites(page)
-  await expect(page.getByRole('status')).toContainText('Sincronizado')
+  await expect(page.getByTestId('sync-status')).toContainText('Sincronizado')
 
   await context.setOffline(true)
   await writeWeight(page, {
@@ -123,7 +123,7 @@ test('três pesos offline chegam ao servidor sem duplicar quando a rede volta', 
     '2026-11-21',
     '2026-11-22',
   ])
-  await expect(page.getByRole('status')).toContainText('Sincronizado')
+  await expect(page.getByTestId('sync-status')).toContainText('Sincronizado')
 })
 
 test('duas abas convergem para a escrita mais recente do mesmo registro', async ({
@@ -152,5 +152,5 @@ test('duas abas convergem para a escrita mais recente do mesmo registro', async 
     .toBe(69.1)
   await expect.poll(() => readWeight(page, id)).toBe(69.1)
   await expect.poll(() => readWeight(second, id)).toBe(69.1)
-  await expect(page.getByRole('status')).toContainText('Sincronizado')
+  await expect(page.getByTestId('sync-status')).toContainText('Sincronizado')
 })
